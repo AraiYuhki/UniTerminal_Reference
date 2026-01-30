@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>テキスト処理 | UniTerminal </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="テキスト処理 | UniTerminal ">
+      
+      
+      <link rel="icon" href="../../../images/favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/ja/articles/commands/text-processing.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../images/logo.svg" alt="UniTerminal">
+            UniTerminal
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="テキスト処理">テキスト処理</h1>
+
+<p>テキスト出力の処理とフィルタリングのためのコマンドです。</p>
+<h2 id="echo">echo</h2>
+<p>テキストを標準出力に出力します。</p>
+<h3 id="書式">書式</h3>
+<pre><code class="lang-bash">echo [-n] [string...]
+</code></pre>
+<h3 id="説明">説明</h3>
+<p>指定された文字列をスペースで区切って標準出力に出力し、末尾に改行を追加します（<code>-n</code> が指定されていない場合）。</p>
+<h3 id="オプション">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code></td>
+<td><code>--newline</code></td>
+<td>末尾の改行を出力しない</td>
+</tr>
+</tbody>
+</table>
+<h3 id="引数">引数</h3>
+<table>
+<thead>
+<tr>
+<th>引数</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>string</code></td>
+<td>出力する1つ以上の文字列。複数の文字列はスペースで連結されます。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用例">使用例</h3>
+<pre><code class="lang-bash"># シンプルな出力
+echo Hello, World!
+# 出力: Hello, World!
+
+# 複数の引数
+echo Hello World from UniTerminal
+# 出力: Hello World from UniTerminal
+
+# 末尾の改行なしで出力
+echo -n &quot;No newline here&quot;
+
+# ファイルにコンテンツを作成
+echo &quot;Configuration data&quot; &gt; config.txt
+
+# ファイルに追記
+echo &quot;Additional line&quot; &gt;&gt; log.txt
+
+# パイプラインで使用
+echo &quot;Hello&quot; | grep -p &quot;ell&quot;
+# 出力: Hello
+</code></pre>
+<h3 id="終了コード">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>常に成功</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="grep">grep</h2>
+<p>パターンに一致する行を検索します。</p>
+<h3 id="書式-1">書式</h3>
+<pre><code class="lang-bash">grep -p &lt;pattern&gt; [-i] [-v] [-c]
+</code></pre>
+<h3 id="説明-1">説明</h3>
+<p>入力行をフィルタリングし、指定された正規表現パターンに一致する行（<code>-v</code> を使用すると一致しない行）のみを出力します。標準入力から読み取ります。</p>
+<h3 id="オプション-1">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-p</code></td>
+<td><code>--pattern</code></td>
+<td><strong>必須。</strong> 検索する正規表現パターン</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td><code>--ignorecase</code></td>
+<td>パターンマッチングで大文字小文字を区別しない</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td><code>--invert</code></td>
+<td>マッチを反転；一致しない行を選択</td>
+</tr>
+<tr>
+<td><code>-c</code></td>
+<td><code>--count</code></td>
+<td>一致した行数のみを出力</td>
+</tr>
+</tbody>
+</table>
+<h3 id="パターン構文">パターン構文</h3>
+<p>grepは.NET正規表現を使用します。よく使うパターン:</p>
+<table>
+<thead>
+<tr>
+<th>パターン</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.</code></td>
+<td>任意の1文字にマッチ</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>直前の要素の0回以上の繰り返しにマッチ</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>直前の要素の1回以上の繰り返しにマッチ</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>直前の要素の0回または1回にマッチ</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>行頭にマッチ</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>行末にマッチ</td>
+</tr>
+<tr>
+<td><code>[abc]</code></td>
+<td>セット内の任意の文字にマッチ</td>
+</tr>
+<tr>
+<td><code>[^abc]</code></td>
+<td>セット内にない任意の文字にマッチ</td>
+</tr>
+<tr>
+<td><code>\d</code></td>
+<td>任意の数字にマッチ</td>
+</tr>
+<tr>
+<td><code>\w</code></td>
+<td>任意の単語文字にマッチ</td>
+</tr>
+<tr>
+<td><code>\s</code></td>
+<td>任意の空白にマッチ</td>
+</tr>
+<tr>
+<td><code>(a\|b)</code></td>
+<td>a または b にマッチ</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用例-1">使用例</h3>
+<pre><code class="lang-bash"># 基本的なパターン検索
+cat file.txt | grep -p &quot;error&quot;
+
+# 大文字小文字を区別しない検索
+cat log.txt | grep -p &quot;warning&quot; -i
+
+# マッチを反転（行を除外）
+ls -la | grep -p &quot;.meta&quot; -v
+
+# 一致数のみをカウント
+hierarchy -r | grep -p &quot;Enemy&quot; -c
+# 出力: 15
+
+# 正規表現パターン
+cat code.cs | grep -p &quot;public class \w+&quot;
+cat log.txt | grep -p &quot;^\[ERROR\]&quot;
+cat data.txt | grep -p &quot;id: \d+&quot;
+
+# 特定のテキストで始まる行を検索
+cat file.txt | grep -p &quot;^TODO&quot;
+
+# 特定のテキストで終わる行を検索
+cat file.txt | grep -p &quot;\.cs$&quot;
+
+# ORパターンを使用
+cat log.txt | grep -p &quot;(error|warning|critical)&quot; -i
+</code></pre>
+<h3 id="終了コード-1">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1行以上が一致</td>
+</tr>
+<tr>
+<td>2</td>
+<td>一致する行なし</td>
+</tr>
+<tr>
+<td>1</td>
+<td>無効なパターンまたはその他のエラー</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="パイプライン使用例">パイプライン使用例</h2>
+<h3 id="テキストファイルの操作">テキストファイルの操作</h3>
+<pre><code class="lang-bash"># ログファイル内でエラーを検索
+cat application.log | grep -p &quot;Exception&quot;
+
+# コード内のTODOコメントを検索
+cat script.cs | grep -p &quot;// TODO&quot;
+
+# 数字を含む行を抽出
+cat data.txt | grep -p &quot;\d+&quot;
+
+# 空行を検索
+cat file.txt | grep -p &quot;^$&quot;
+
+# 空でない行を検索
+cat file.txt | grep -p &quot;^$&quot; -v
+</code></pre>
+<h3 id="unityヒエラルキーのフィルタリング">Unityヒエラルキーのフィルタリング</h3>
+<pre><code class="lang-bash"># 名前に「Player」を含むすべてのオブジェクトを検索
+hierarchy -r | grep -p &quot;Player&quot;
+
+# パターンでオブジェクトを検索
+hierarchy -r | grep -p &quot;Enemy_\d+&quot;
+
+# 「Untagged」以外のタグが付いたオブジェクトを検索
+hierarchy -r -l | grep -p &quot;Untagged&quot; -v
+
+# シーン内の敵の数をカウント
+hierarchy -r | grep -p &quot;Enemy&quot; -c
+</code></pre>
+<h3 id="ファイル一覧のフィルタリング">ファイル一覧のフィルタリング</h3>
+<pre><code class="lang-bash"># C#ファイルを検索
+ls -R | grep -p &quot;\.cs$&quot;
+
+# metaファイルを除外
+ls -la | grep -p &quot;\.meta$&quot; -v
+
+# 特定のプレフィックスを持つファイルを検索
+ls | grep -p &quot;^Player&quot;
+
+# サイズパターンでファイルを検索
+ls -lh | grep -p &quot;MB&quot;
+</code></pre>
+<h3 id="複数のフィルタをチェーン">複数のフィルタをチェーン</h3>
+<pre><code class="lang-bash"># アクティブなプレイヤーを検索
+hierarchy -r -l | grep -p &quot;Player&quot; | grep -p &quot;Active&quot;
+
+# 警告を除くエラーメッセージを検索
+cat log.txt | grep -p &quot;error&quot; -i | grep -p &quot;warning&quot; -v
+
+# 複雑なフィルタリング
+ls -la | grep -p &quot;\.cs$&quot; | grep -p &quot;Test&quot; -v
+</code></pre>
+<h3 id="他のコマンドとの組み合わせ">他のコマンドとの組み合わせ</h3>
+<pre><code class="lang-bash"># ファイルを検索して内容を検索
+find -n &quot;*.cs&quot; | cat | grep -p &quot;class&quot;
+
+# 特定のアイテムをカウント
+hierarchy -c Rigidbody | grep -p &quot;/&quot; -c
+
+# 検索して結果を保存
+hierarchy -r | grep -p &quot;Enemy&quot; &gt; enemies.txt
+
+# 多段階フィルタリング
+cat config.json | grep -p &quot;\&quot;enabled\&quot;&quot; | grep -p &quot;true&quot; -c
+</code></pre>
+<h3 id="実用的なユースケース">実用的なユースケース</h3>
+<pre><code class="lang-bash"># ミッシングスクリプトを持つすべてのGameObjectを検索
+component list /Root -v | grep -p &quot;Missing&quot;
+
+# 特定のコンポーネントを持つオブジェクトを検索
+hierarchy -r -l | grep -p &quot;Rigidbody&quot;
+
+# デバッグ出力のフィルタリング
+property list /Player Rigidbody | grep -p &quot;mass\|drag\|velocity&quot;
+
+# ヒエラルキーパス内のパターンを検索
+hierarchy -r | grep -p &quot;UI/.*Button&quot;
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/ja/articles/commands/text-processing.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>ユーティリティ | UniTerminal </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="ユーティリティ | UniTerminal ">
+      
+      
+      <link rel="icon" href="../../../images/favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/ja/articles/commands/utilities.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../images/logo.svg" alt="UniTerminal">
+            UniTerminal
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="ユーティリティ">ユーティリティ</h1>
+
+<p>一般的なユーティリティコマンドです。</p>
+<h2 id="help">help</h2>
+<p>コマンドのヘルプ情報を表示します。</p>
+<h3 id="書式">書式</h3>
+<pre><code class="lang-bash">help [command]
+</code></pre>
+<h3 id="説明">説明</h3>
+<p>引数なしの場合、利用可能なすべてのコマンドを一覧表示します。コマンド名を指定すると、そのコマンドの詳細なヘルプを表示します。</p>
+<h3 id="引数">引数</h3>
+<table>
+<thead>
+<tr>
+<th>引数</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>command</code></td>
+<td>ヘルプを表示するコマンド名（オプション）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用例">使用例</h3>
+<pre><code class="lang-bash"># すべてのコマンドを一覧表示
+help
+
+# 特定のコマンドのヘルプを表示
+help ls
+help hierarchy
+help property
+</code></pre>
+<h3 id="終了コード">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>1</td>
+<td>指定されたコマンドが見つからない</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="history">history</h2>
+<p>コマンド履歴を管理します。</p>
+<h3 id="書式-1">書式</h3>
+<pre><code class="lang-bash">history [-c] [-d index] [-n count] [-r file]
+</code></pre>
+<h3 id="説明-1">説明</h3>
+<p>コマンド履歴を表示・管理します。引数なしの場合、すべての履歴を表示します。</p>
+<h3 id="オプション">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-c</code></td>
+<td><code>--clear</code></td>
+<td>履歴をすべてクリア</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td><code>--delete</code></td>
+<td>指定インデックスのエントリを削除</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td><code>--number</code></td>
+<td>最後のN件のみを表示</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td><code>--read</code></td>
+<td>ファイルから履歴を読み込み</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用例-1">使用例</h3>
+<pre><code class="lang-bash"># コマンド履歴を表示
+history
+
+# 最後の10件を表示
+history -n 10
+
+# 履歴をクリア
+history -c
+
+# 特定のエントリを削除
+history -d 5
+
+# ファイルから履歴を読み込み
+history -r ~/.terminal_history
+</code></pre>
+<h3 id="出力">出力</h3>
+<pre><code>  1  echo Hello
+  2  ls -la
+  3  hierarchy -r
+  4  go create Player
+  5  transform /Player -p 0,1,0
+</code></pre>
+<h3 id="終了コード-1">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>1</td>
+<td>無効なインデックス</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ファイルが見つからない</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="clear">clear</h2>
+<p>画面表示をクリアします。</p>
+<h3 id="書式-2">書式</h3>
+<pre><code class="lang-bash">clear
+</code></pre>
+<h3 id="説明-2">説明</h3>
+<p>ターミナルの出力表示をクリアします。UniTerminal UIコンポーネントと連携して動作します。</p>
+<h3 id="使用例-2">使用例</h3>
+<pre><code class="lang-bash">clear
+</code></pre>
+<h3 id="終了コード-2">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>常に成功</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="log">log</h2>
+<p>Unityログを表示・監視します。</p>
+<h3 id="書式-3">書式</h3>
+<pre><code class="lang-bash">log [-i] [-w] [-e] [-f] [-t N] [-h N] [-s]
+</code></pre>
+<h3 id="説明-3">説明</h3>
+<p>Unity Debug.Logで出力されたログを表示します。ログタイプでフィルタリングしたり、リアルタイムで監視したりできます。</p>
+<h3 id="オプション-1">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-i</code></td>
+<td><code>--info</code></td>
+<td>Info（通常ログ）のみを表示</td>
+</tr>
+<tr>
+<td><code>-w</code></td>
+<td><code>--warn</code></td>
+<td>Warningのみを表示</td>
+</tr>
+<tr>
+<td><code>-e</code></td>
+<td><code>--error</code></td>
+<td>Error、Exception、Assertを表示</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td><code>--follow</code></td>
+<td>リアルタイムで監視（Ctrl+Cで停止）</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td><code>--tail</code></td>
+<td>末尾N件を表示</td>
+</tr>
+<tr>
+<td><code>-h</code></td>
+<td><code>--head</code></td>
+<td>先頭N件を表示</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td><code>--stack-trace</code></td>
+<td>スタックトレースを表示</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用例-3">使用例</h3>
+<pre><code class="lang-bash"># 全ログを表示
+log
+
+# Infoのみ表示
+log -i
+
+# Warningのみ表示
+log -w
+
+# Errorのみ表示（Exception, Assertを含む）
+log -e
+
+# 複合フィルタ
+log -i -w
+
+# 末尾N件を表示
+log -t 20
+
+# 先頭N件を表示
+log -h 10
+
+# スタックトレースを表示
+log -s
+
+# リアルタイム監視（Ctrl+Cで停止）
+log -f
+
+# フィルタ付きリアルタイム監視
+log -f -e
+</code></pre>
+<h3 id="出力形式">出力形式</h3>
+<p><strong>通常形式:</strong></p>
+<pre><code>[10:30:15] [Info] Game started
+[10:30:16] [Warning] Low memory warning
+[10:30:17] [Error] Failed to load asset
+</code></pre>
+<p><strong>スタックトレース付き (<code>-s</code>):</strong></p>
+<pre><code>[10:30:17] [Error] Failed to load asset
+  at GameManager.LoadAsset() (at Assets/Scripts/GameManager.cs:45)
+  at GameManager.Start() (at Assets/Scripts/GameManager.cs:20)
+</code></pre>
+<h3 id="終了コード-3">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="実用的なパターン">実用的なパターン</h2>
+<h3 id="デバッグワークフロー">デバッグワークフロー</h3>
+<pre><code class="lang-bash"># エラーログを確認
+log -e
+
+# スタックトレース付きで最新のエラーを確認
+log -e -t 5 -s
+
+# エラーをリアルタイム監視
+log -f -e
+
+# ログをファイルに保存
+log &gt; debug_log.txt
+</code></pre>
+<h3 id="開発中のログ監視">開発中のログ監視</h3>
+<pre><code class="lang-bash"># 全ログをリアルタイム監視
+log -f
+
+# Warningとエラーのみ監視
+log -f -w -e
+
+# パイプラインでフィルタリング
+log | grep -p &quot;Player&quot;
+</code></pre>
+<h3 id="履歴の活用">履歴の活用</h3>
+<pre><code class="lang-bash"># 履歴から特定のコマンドを検索
+history | grep -p &quot;hierarchy&quot;
+
+# 最近のコマンドを確認
+history -n 20
+
+# 履歴を保存
+history &gt; command_history.txt
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/ja/articles/commands/utilities.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

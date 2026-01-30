@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>File Operations | UniTerminal </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="File Operations | UniTerminal ">
+      
+      
+      <link rel="icon" href="../../images/favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/articles/commands/file-operations.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../images/logo.svg" alt="UniTerminal">
+            UniTerminal
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="file-operations">File Operations</h1>
+
+<p>Commands for navigating and manipulating files and directories.</p>
+<h2 id="pwd">pwd</h2>
+<p>Print the current working directory.</p>
+<h3 id="synopsis">Synopsis</h3>
+<pre><code class="lang-bash">pwd [-L|-P]
+</code></pre>
+<h3 id="description">Description</h3>
+<p>Displays the absolute path of the current working directory.</p>
+<h3 id="options">Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-L</code></td>
+<td><code>--logical</code></td>
+<td>Print logical path (default). Uses the path as set, including any symbolic link names.</td>
+</tr>
+<tr>
+<td><code>-P</code></td>
+<td><code>--physical</code></td>
+<td>Print physical path with symbolic links resolved.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples">Examples</h3>
+<pre><code class="lang-bash"># Print current directory
+pwd
+# Output: /Users/player/Projects/MyGame
+
+# Print physical path (resolve symlinks)
+pwd -P
+# Output: /Users/player/Projects/MyGame
+</code></pre>
+<h3 id="exit-codes">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Current directory does not exist or permission denied</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="cd">cd</h2>
+<p>Change the working directory.</p>
+<h3 id="synopsis-1">Synopsis</h3>
+<pre><code class="lang-bash">cd [-L|-P] [directory]
+cd -
+</code></pre>
+<h3 id="description-1">Description</h3>
+<p>Changes the current working directory to the specified path. Without arguments, changes to the home directory.</p>
+<h3 id="options-1">Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-L</code></td>
+<td><code>--logical</code></td>
+<td>Follow symbolic links (default)</td>
+</tr>
+<tr>
+<td><code>-P</code></td>
+<td><code>--physical</code></td>
+<td>Use physical directory structure, resolving symbolic links</td>
+</tr>
+</tbody>
+</table>
+<h3 id="arguments">Arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>directory</code></td>
+<td>Target directory path. Supports <code>~</code> for home directory.</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>Change to previous directory (equivalent to <code>cd $OLDPWD</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples-1">Examples</h3>
+<pre><code class="lang-bash"># Change to home directory
+cd
+
+# Change to specific directory
+cd /Users/player/Projects
+
+# Change to parent directory
+cd ..
+
+# Change using home shorthand
+cd ~/Documents
+
+# Change to previous directory
+cd -
+# Output: /previous/path
+
+# Use physical path
+cd -P /symlinked/path
+</code></pre>
+<h3 id="exit-codes-1">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Too many arguments</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Directory not found, not a directory, or permission denied</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="ls">ls</h2>
+<p>List directory contents.</p>
+<h3 id="synopsis-2">Synopsis</h3>
+<pre><code class="lang-bash">ls [-a] [-l] [-h] [-r] [-R] [-S &lt;sort&gt;] [path...]
+</code></pre>
+<h3 id="description-2">Description</h3>
+<p>Lists information about files and directories. By default, lists the current directory contents.</p>
+<h3 id="options-2">Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a</code></td>
+<td><code>--all</code></td>
+<td>Do not ignore entries starting with <code>.</code> (hidden files)</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td><code>--long</code></td>
+<td>Use long listing format with details</td>
+</tr>
+<tr>
+<td><code>-h</code></td>
+<td><code>--human-readable</code></td>
+<td>Print sizes in human readable format (e.g., 1K, 234M)</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td><code>--reverse</code></td>
+<td>Reverse order while sorting</td>
+</tr>
+<tr>
+<td><code>-R</code></td>
+<td><code>--recursive</code></td>
+<td>List subdirectories recursively</td>
+</tr>
+<tr>
+<td><code>-S</code></td>
+<td><code>--sort</code></td>
+<td>Sort by: <code>name</code> (default), <code>size</code>, <code>time</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="arguments-1">Arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td>File or directory to list. Multiple paths can be specified.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="output-format">Output Format</h3>
+<p><strong>Normal format:</strong></p>
+<pre><code>file1.txt  file2.txt  folder/
+</code></pre>
+<p><strong>Long format (<code>-l</code>):</strong></p>
+<pre><code>-rw-rw-rw-  1      1234  2025-01-15 10:30  file.txt
+drwxrwxrwx  2         0  2025-01-15 09:00  folder/
+</code></pre>
+<p>Fields: permissions, link count, size, date, name</p>
+<h3 id="examples-2">Examples</h3>
+<pre><code class="lang-bash"># List current directory
+ls
+
+# List with details
+ls -l
+
+# List all files including hidden
+ls -a
+
+# List with human-readable sizes
+ls -lh
+
+# Sort by size (largest first)
+ls -l -S size
+
+# Sort by modification time
+ls -l -S time
+
+# Reverse sort order
+ls -lr
+
+# List recursively
+ls -R
+
+# List specific directory
+ls /path/to/directory
+
+# List multiple paths
+ls file1.txt folder/
+</code></pre>
+<h3 id="exit-codes-2">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>2</td>
+<td>File or directory not found, or permission denied</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="cat">cat</h2>
+<p>Concatenate and display file contents.</p>
+<h3 id="synopsis-3">Synopsis</h3>
+<pre><code class="lang-bash">cat [file...]
+</code></pre>
+<h3 id="description-3">Description</h3>
+<p>Reads files sequentially and writes them to standard output. If no file is specified, reads from standard input.</p>
+<h3 id="arguments-2">Arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file</code></td>
+<td>One or more files to display. If omitted, reads from stdin.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples-3">Examples</h3>
+<pre><code class="lang-bash"># Display file contents
+cat file.txt
+
+# Display multiple files
+cat file1.txt file2.txt
+
+# Use in pipeline (pass through)
+echo &quot;Hello&quot; | cat
+
+# Redirect to file
+cat source.txt &gt; destination.txt
+
+# Append files
+cat header.txt body.txt footer.txt &gt; complete.txt
+</code></pre>
+<h3 id="exit-codes-3">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>2</td>
+<td>File not found or read error</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="find">find</h2>
+<p>Search for files in a directory hierarchy.</p>
+<h3 id="synopsis-4">Synopsis</h3>
+<pre><code class="lang-bash">find [path...] [-n pattern] [-i pattern] [-t type] [-d depth] [--mindepth N]
+</code></pre>
+<h3 id="description-4">Description</h3>
+<p>Searches for files matching specified criteria within directory trees.</p>
+<h3 id="options-3">Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code></td>
+<td><code>--name</code></td>
+<td>File name pattern (supports <code>*</code> and <code>?</code> wildcards)</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td><code>--iname</code></td>
+<td>Case-insensitive file name pattern</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td><code>--type</code></td>
+<td>File type: <code>f</code> (file), <code>d</code> (directory)</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td><code>--maxdepth</code></td>
+<td>Maximum search depth (-1 = unlimited, default)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--mindepth</code></td>
+<td>Minimum search depth (default: 0)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="arguments-3">Arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td>Starting directory for search. Defaults to current directory.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wildcards">Wildcards</h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td>Matches any sequence of characters</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>Matches any single character</td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples-4">Examples</h3>
+<pre><code class="lang-bash"># Find all files in current directory tree
+find
+
+# Find by name pattern
+find -n &quot;*.cs&quot;
+find -n &quot;Player*&quot;
+
+# Case-insensitive search
+find -i &quot;readme*&quot;
+
+# Find only files
+find -t f
+
+# Find only directories
+find -t d
+
+# Limit search depth
+find -d 2
+
+# Combine options
+find /path/to/search -n &quot;*.txt&quot; -t f -d 3
+
+# Find in specific directory
+find Assets/Scripts -n &quot;*.cs&quot;
+</code></pre>
+<h3 id="output">Output</h3>
+<p>Outputs matching paths relative to the search directory:</p>
+<pre><code>./file.txt
+./subfolder/another.txt
+./subfolder/deep/file.txt
+</code></pre>
+<h3 id="exit-codes-4">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success (even if no matches found)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Starting path not found</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="less">less</h2>
+<p>View file contents page by page.</p>
+<h3 id="synopsis-5">Synopsis</h3>
+<pre><code class="lang-bash">less [-n lines] [-f line] [-N] [-S] [file]
+</code></pre>
+<h3 id="description-5">Description</h3>
+<p>Displays file contents with pagination support. In UniTerminal's non-interactive environment, outputs a specified number of lines.</p>
+<h3 id="options-4">Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code></td>
+<td><code>--lines</code></td>
+<td>Number of lines to display (0 = all, default)</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td><code>--from-line</code></td>
+<td>Start from specified line number (1-based, default: 1)</td>
+</tr>
+<tr>
+<td><code>-N</code></td>
+<td><code>--line-numbers</code></td>
+<td>Show line numbers</td>
+</tr>
+<tr>
+<td><code>-S</code></td>
+<td><code>--chop-long-lines</code></td>
+<td>Truncate long lines at 80 characters</td>
+</tr>
+</tbody>
+</table>
+<h3 id="arguments-4">Arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file</code></td>
+<td>File to view. Use <code>-</code> for stdin. If omitted, reads from stdin.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples-5">Examples</h3>
+<pre><code class="lang-bash"># View entire file
+less file.txt
+
+# View first 20 lines
+less -n 20 file.txt
+
+# View lines 50-70
+less -f 50 -n 20 file.txt
+
+# Show with line numbers
+less -N file.txt
+
+# Truncate long lines
+less -S logfile.txt
+
+# View from stdin
+cat file.txt | less -n 10
+
+# Combine options
+less -N -n 50 -f 100 largefile.txt
+</code></pre>
+<h3 id="output-with--n-option">Output with <code>-n</code> option</h3>
+<pre><code>File: example.txt (lines 1-20 of 150)
+----------------------------------------
+Line 1 content
+Line 2 content
+...
+----------------------------------------
+(130 more lines)
+</code></pre>
+<h3 id="exit-codes-5">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>2</td>
+<td>File not found, is a directory, or permission denied</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="diff">diff</h2>
+<p>Compare files line by line.</p>
+<h3 id="synopsis-6">Synopsis</h3>
+<pre><code class="lang-bash">diff [-u N] [-i] [-b] [-w] [-q] &lt;file1&gt; &lt;file2&gt;
+</code></pre>
+<h3 id="description-6">Description</h3>
+<p>Compares two files and displays the differences. Uses the LCS (Longest Common Subsequence) algorithm.</p>
+<h3 id="options-5">Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-u</code></td>
+<td><code>--unified</code></td>
+<td>Output in unified format with N lines of context</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td><code>--ignore-case</code></td>
+<td>Ignore case differences in file contents</td>
+</tr>
+<tr>
+<td><code>-b</code></td>
+<td><code>--ignore-space</code></td>
+<td>Ignore changes in the amount of whitespace</td>
+</tr>
+<tr>
+<td><code>-w</code></td>
+<td><code>--ignore-all-space</code></td>
+<td>Ignore all whitespace</td>
+</tr>
+<tr>
+<td><code>-q</code></td>
+<td><code>--brief</code></td>
+<td>Report only whether files differ</td>
+</tr>
+</tbody>
+</table>
+<h3 id="arguments-5">Arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file1</code></td>
+<td>First file to compare. Use <code>-</code> for stdin.</td>
+</tr>
+<tr>
+<td><code>file2</code></td>
+<td>Second file to compare. Use <code>-</code> for stdin.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="output-formats">Output Formats</h3>
+<p><strong>Normal format (default):</strong></p>
+<pre><code>2c2
+&lt; old line
+---
+&gt; new line
+5a6
+&gt; added line
+8d7
+&lt; deleted line
+</code></pre>
+<p><strong>Unified format (<code>-u</code>):</strong></p>
+<pre><code>--- file1.txt
++++ file2.txt
+@@ -1,5 +1,6 @@
+ context line
+-removed line
++added line
+ context line
+</code></pre>
+<h3 id="examples-6">Examples</h3>
+<pre><code class="lang-bash"># Compare two files
+diff file1.txt file2.txt
+
+# Unified format with 3 lines context
+diff -u 3 file1.txt file2.txt
+
+# Ignore case
+diff -i file1.txt file2.txt
+
+# Ignore whitespace changes
+diff -w file1.txt file2.txt
+
+# Brief output
+diff -q file1.txt file2.txt
+# Output: Files file1.txt and file2.txt differ
+
+# Compare with stdin
+cat modified.txt | diff original.txt -
+</code></pre>
+<h3 id="exit-codes-6">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Files are identical</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Files differ</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Error (file not found, etc.)</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/articles/commands/file-operations.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

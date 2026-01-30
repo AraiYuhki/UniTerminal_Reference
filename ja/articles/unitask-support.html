@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>UniTaskサポート | UniTerminal </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="UniTaskサポート | UniTerminal ">
+      
+      
+      <link rel="icon" href="../../images/favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/ja/articles/unitask-support.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../images/logo.svg" alt="UniTerminal">
+            UniTerminal
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="unitaskサポート">UniTaskサポート</h1>
+
+<p>UniTerminalは、高パフォーマンスな非同期操作のために<a href="https://github.com/Cysharp/UniTask">UniTask</a>とのオプション統合を提供します。</p>
+<h2 id="概要">概要</h2>
+<p>UniTaskサポートは、UniTaskがプロジェクトにインストールされていると<strong>自動的に有効</strong>になります。追加の設定は必要ありません。</p>
+<p>UniTaskが検出されると、<code>UNI_TERMINAL_UNI_TASK_SUPPORT</code> シンボルが自動的に定義されます。</p>
+<h2 id="インストール">インストール</h2>
+<h3 id="unitaskをインストール">UniTaskをインストール</h3>
+<p>Package Manager経由でUniTaskをプロジェクトに追加:</p>
+<pre><code>https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask
+</code></pre>
+<p>またはmanifest.json経由:</p>
+<pre><code class="lang-json">{
+  &quot;dependencies&quot;: {
+    &quot;com.cysharp.unitask&quot;: &quot;https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask&quot;
+  }
+}
+</code></pre>
+<p>UniTerminalは自動的にUniTaskを検出してサポートを有効にします。</p>
+<h2 id="unitask実行の使用">UniTask実行の使用</h2>
+<h3 id="基本的な使用方法">基本的な使用方法</h3>
+<pre><code class="lang-csharp">using Cysharp.Threading.Tasks;
+using Xeon.UniTerminal;
+
+public class UniTaskExample : MonoBehaviour
+{
+    private Terminal _terminal;
+
+    void Start()
+    {
+        _terminal = new Terminal(
+            Application.dataPath,
+            Application.dataPath,
+            true
+        );
+
+        ExecuteCommand().Forget();
+    }
+
+    async UniTaskVoid ExecuteCommand()
+    {
+        var stdout = new UniTaskStringBuilderTextWriter();
+        var stderr = new UniTaskStringBuilderTextWriter();
+
+        var exitCode = await _terminal.ExecuteUniTaskAsync(
+            &quot;hierarchy -r&quot;,
+            stdout,
+            stderr
+        );
+
+        Debug.Log(stdout.ToString());
+    }
+}
+</code></pre>
+<h3 id="unitask-テキストライター">UniTask テキストライター</h3>
+<p>UniTerminalはUniTask用の特殊なテキストライターを提供します:</p>
+<table>
+<thead>
+<tr>
+<th>クラス</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UniTaskStringBuilderTextWriter</code></td>
+<td>StringBuilderに書き込み</td>
+</tr>
+<tr>
+<td><code>UniTaskListTextWriter</code></td>
+<td>List<string>に書き込み</string></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// StringBuilder出力
+var stdout = new UniTaskStringBuilderTextWriter();
+await terminal.ExecuteUniTaskAsync(&quot;echo Hello&quot;, stdout, stderr);
+string result = stdout.ToString();
+
+// List出力（行単位）
+var listWriter = new UniTaskListTextWriter();
+await terminal.ExecuteUniTaskAsync(&quot;hierarchy -r&quot;, listWriter, stderr);
+foreach (var line in listWriter.Lines)
+{
+    Debug.Log(line);
+}
+</code></pre>
+<h2 id="unitaskコマンドの作成">UniTaskコマンドの作成</h2>
+<p>UniTaskを使用するコマンドには <code>IUniTaskCommand</code> を実装します:</p>
+<pre><code class="lang-csharp">using Cysharp.Threading.Tasks;
+using Xeon.UniTerminal;
+using System.Collections.Generic;
+using System.Threading;
+
+[Command(&quot;download&quot;, &quot;リソースをダウンロード&quot;)]
+public class DownloadCommand : IUniTaskCommand
+{
+    [Option(&quot;url&quot;, &quot;u&quot;, Description = &quot;ダウンロードするURL&quot;)]
+    public string Url;
+
+    public string CommandName =&gt; &quot;download&quot;;
+    public string Description =&gt; &quot;リソースをダウンロード&quot;;
+
+    public async UniTask&lt;ExitCode&gt; ExecuteAsync(
+        UniTaskCommandContext context,
+        CancellationToken ct)
+    {
+        if (string.IsNullOrEmpty(Url))
+        {
+            await context.Stderr.WriteLineAsync(&quot;Error: URLが必要です&quot;, ct);
+            return ExitCode.UsageError;
+        }
+
+        await context.Stdout.WriteLineAsync($&quot;ダウンロード中: {Url}&quot;, ct);
+
+        // UniTaskの非同期操作を使用
+        using var request = UnityWebRequest.Get(Url);
+        await request.SendWebRequest().ToUniTask(cancellationToken: ct);
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            await context.Stdout.WriteLineAsync(request.downloadHandler.text, ct);
+            return ExitCode.Success;
+        }
+        else
+        {
+            await context.Stderr.WriteLineAsync($&quot;Error: {request.error}&quot;, ct);
+            return ExitCode.RuntimeError;
+        }
+    }
+
+    public IEnumerable&lt;string&gt; GetCompletions(CompletionContext context)
+    {
+        yield break;
+    }
+}
+</code></pre>
+<h2 id="unitaskcommandcontext">UniTaskCommandContext</h2>
+<p><code>UniTaskCommandContext</code> はUniTask互換のI/Oを提供します:</p>
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>型</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Stdin</code></td>
+<td><code>IUniTaskTextReader</code></td>
+<td>入力ストリーム</td>
+</tr>
+<tr>
+<td><code>Stdout</code></td>
+<td><code>IUniTaskTextWriter</code></td>
+<td>出力ストリーム</td>
+</tr>
+<tr>
+<td><code>Stderr</code></td>
+<td><code>IUniTaskTextWriter</code></td>
+<td>エラーストリーム</td>
+</tr>
+<tr>
+<td><code>PositionalArguments</code></td>
+<td><code>IReadOnlyList&lt;string&gt;</code></td>
+<td>位置引数</td>
+</tr>
+<tr>
+<td><code>WorkingDirectory</code></td>
+<td><code>string</code></td>
+<td>現在の作業ディレクトリ</td>
+</tr>
+<tr>
+<td><code>HomeDirectory</code></td>
+<td><code>string</code></td>
+<td>ホームディレクトリ</td>
+</tr>
+<tr>
+<td><code>Terminal</code></td>
+<td><code>Terminal</code></td>
+<td>Terminalインスタンス</td>
+</tr>
+</tbody>
+</table>
+<h2 id="インターフェースリファレンス">インターフェースリファレンス</h2>
+<h3 id="iunitasktextwriter">IUniTaskTextWriter</h3>
+<pre><code class="lang-csharp">public interface IUniTaskTextWriter
+{
+    UniTask WriteAsync(string value, CancellationToken ct = default);
+    UniTask WriteLineAsync(string value, CancellationToken ct = default);
+    UniTask WriteLineAsync(CancellationToken ct = default);
+}
+</code></pre>
+<h3 id="iunitasktextreader">IUniTaskTextReader</h3>
+<pre><code class="lang-csharp">public interface IUniTaskTextReader
+{
+    UniTask&lt;string&gt; ReadLineAsync(CancellationToken ct = default);
+    UniTask&lt;string&gt; ReadToEndAsync(CancellationToken ct = default);
+}
+</code></pre>
+<h2 id="標準とunitaskコマンドの混在">標準とUniTaskコマンドの混在</h2>
+<p>UniTerminalは標準の <code>ICommand</code> と <code>IUniTaskCommand</code> の両方をシームレスに処理します:</p>
+<pre><code class="lang-csharp">// 両方のタイプを登録
+terminal.Registry.Register&lt;StandardCommand&gt;();  // ICommand
+terminal.Registry.Register&lt;UniTaskCommand&gt;();   // IUniTaskCommand
+
+// UniTaskで実行 - 両方とも動作
+await terminal.ExecuteUniTaskAsync(&quot;standard-cmd | unitask-cmd&quot;, stdout, stderr);
+</code></pre>
+<h2 id="パフォーマンスの利点">パフォーマンスの利点</h2>
+<p>UniTaskは以下を提供します:</p>
+<ul>
+<li><strong>ゼロアロケーション</strong> async/await</li>
+<li><strong>より良いパフォーマンス</strong> Task ベースのasyncより</li>
+<li><strong>Unity最適化</strong> のタイミングとスケジューリング</li>
+<li><strong>キャンセルサポート</strong> Unityライフサイクルとの統合</li>
+</ul>
+<h2 id="条件付きコンパイル">条件付きコンパイル</h2>
+<p>UniTaskの有無に関わらず動作するコードを書く必要がある場合:</p>
+<pre><code class="lang-csharp">#if UNI_TERMINAL_UNI_TASK_SUPPORT
+using Cysharp.Threading.Tasks;
+#endif
+
+public class ConditionalExample : MonoBehaviour
+{
+#if UNI_TERMINAL_UNI_TASK_SUPPORT
+    async UniTaskVoid Start()
+    {
+        var stdout = new UniTaskStringBuilderTextWriter();
+        var stderr = new UniTaskStringBuilderTextWriter();
+        await _terminal.ExecuteUniTaskAsync(&quot;help&quot;, stdout, stderr);
+    }
+#else
+    async void Start()
+    {
+        var stdout = new StringWriter();
+        var stderr = new StringWriter();
+        await _terminal.ExecuteAsync(&quot;help&quot;, stdout, stderr, destroyCancellationToken);
+    }
+#endif
+}
+</code></pre>
+<h2 id="ベストプラクティス">ベストプラクティス</h2>
+<ol>
+<li><strong>UIにはUniTaskを使用</strong> - ターミナル出力表示のパフォーマンス向上</li>
+<li><strong>キャンセルを活用</strong> - CancellationTokenを適切に渡す</li>
+<li><strong>適切なライターを使用</strong> - 行単位の処理には <code>UniTaskListTextWriter</code></li>
+<li><strong>ブロックしない</strong> - <code>.Result</code> や <code>.Wait()</code> の代わりに <code>await</code> を使用</li>
+</ol>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/ja/articles/unitask-support.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

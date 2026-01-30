@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>FlyweightScrollView | UniTerminal </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="FlyweightScrollView | UniTerminal ">
+      
+      
+      <link rel="icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/articles/flyweight-scrollview.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.svg" alt="UniTerminal">
+            UniTerminal
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="flyweightscrollview">FlyweightScrollView</h1>
+
+<p>A high-performance virtual scrolling component for displaying large amounts of data efficiently.</p>
+<h2 id="overview">Overview</h2>
+<p>FlyweightScrollView uses the <strong>flyweight pattern</strong> to render only visible items, making it ideal for:</p>
+<ul>
+<li>Terminal output with thousands of lines</li>
+<li>Log viewers</li>
+<li>Large lists and tables</li>
+<li>Any scrollable content with many items</li>
+</ul>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Virtual scrolling</strong> - Only renders visible items</li>
+<li><strong>Efficient memory usage</strong> - Reuses UI elements</li>
+<li><strong>CircularBuffer</strong> - Fixed-size buffer with automatic old entry removal</li>
+<li><strong>Vertical &amp; Horizontal</strong> - Supports both scroll directions</li>
+<li><strong>Data binding</strong> - Works with ObservableCollection</li>
+</ul>
+<h2 id="components">Components</h2>
+<h3 id="flyweightscrollview-1">FlyweightScrollView</h3>
+<p>The main scroll view component.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FlyweightVerticalScrollView</code></td>
+<td>Vertical scrolling</td>
+</tr>
+<tr>
+<td><code>FlyweightHorizontalScrollView</code></td>
+<td>Horizontal scrolling</td>
+</tr>
+</tbody>
+</table>
+<h3 id="circularbuffer">CircularBuffer</h3>
+<p>A fixed-size buffer that automatically removes old entries when full.</p>
+<pre><code class="lang-csharp">using Xeon.Common.FlyweightScrollView.Model;
+
+// Create buffer with max 1000 items
+var buffer = new CircularBuffer&lt;string&gt;(1000);
+
+// Add items
+buffer.Add(&quot;Line 1&quot;);
+buffer.Add(&quot;Line 2&quot;);
+
+// When full, oldest items are automatically removed
+for (int i = 0; i &lt; 2000; i++)
+{
+    buffer.Add($&quot;Line {i}&quot;);  // Only last 1000 remain
+}
+
+// Access items
+string first = buffer[0];
+int count = buffer.Count;  // Max 1000
+</code></pre>
+<h2 id="setup">Setup</h2>
+<h3 id="1-create-item-view">1. Create Item View</h3>
+<p>Create a script that inherits from <code>FlyweightScrollViewItemBase</code>:</p>
+<pre><code class="lang-csharp">using UnityEngine;
+using UnityEngine.UI;
+using Xeon.Common.FlyweightScrollView;
+
+public class LogItemView : FlyweightScrollViewItemBase&lt;string&gt;
+{
+    [SerializeField] private Text _text;
+
+    public override void Bind(string data)
+    {
+        _text.text = data;
+    }
+
+    public override void Unbind()
+    {
+        _text.text = string.Empty;
+    }
+}
+</code></pre>
+<h3 id="2-create-item-prefab">2. Create Item Prefab</h3>
+<ol>
+<li>Create a UI element (e.g., Panel with Text)</li>
+<li>Add your item view script</li>
+<li>Set the RectTransform size (this determines item height/width)</li>
+<li>Save as prefab</li>
+</ol>
+<h3 id="3-setup-scrollview">3. Setup ScrollView</h3>
+<pre><code class="lang-csharp">using UnityEngine;
+using Xeon.Common.FlyweightScrollView;
+using Xeon.Common.FlyweightScrollView.Model;
+
+public class TerminalDisplay : MonoBehaviour
+{
+    [SerializeField] private FlyweightVerticalScrollView _scrollView;
+    [SerializeField] private LogItemView _itemPrefab;
+
+    private CircularBuffer&lt;string&gt; _logBuffer;
+
+    void Start()
+    {
+        // Create buffer (max 1000 lines)
+        _logBuffer = new CircularBuffer&lt;string&gt;(1000);
+
+        // Initialize scroll view
+        _scrollView.Initialize&lt;string, LogItemView&gt;(_itemPrefab, _logBuffer);
+    }
+
+    public void AddLog(string message)
+    {
+        _logBuffer.Add(message);
+
+        // Scroll to bottom (optional)
+        _scrollView.ScrollToEnd();
+    }
+}
+</code></pre>
+<h2 id="integration-with-terminal">Integration with Terminal</h2>
+<h3 id="basic-terminal-display">Basic Terminal Display</h3>
+<pre><code class="lang-csharp">using UnityEngine;
+using Xeon.UniTerminal;
+using Xeon.Common.FlyweightScrollView;
+using Xeon.Common.FlyweightScrollView.Model;
+using System.Threading;
+
+public class TerminalUI : MonoBehaviour
+{
+    [SerializeField] private FlyweightVerticalScrollView _scrollView;
+    [SerializeField] private LogItemView _itemPrefab;
+    [SerializeField] private InputField _inputField;
+
+    private Terminal _terminal;
+    private CircularBuffer&lt;string&gt; _outputBuffer;
+
+    void Start()
+    {
+        _outputBuffer = new CircularBuffer&lt;string&gt;(1000);
+        _scrollView.Initialize&lt;string, LogItemView&gt;(_itemPrefab, _outputBuffer);
+
+        _terminal = new Terminal(
+            Application.dataPath,
+            Application.dataPath,
+            true
+        );
+
+        _inputField.onEndEdit.AddListener(OnCommandSubmit);
+    }
+
+    async void OnCommandSubmit(string command)
+    {
+        if (string.IsNullOrEmpty(command)) return;
+
+        _inputField.text = &quot;&quot;;
+        _outputBuffer.Add($&quot;&gt; {command}&quot;);
+
+        var stdout = new ListTextWriter();
+        var stderr = new ListTextWriter();
+
+        await _terminal.ExecuteAsync(
+            command,
+            stdout,
+            stderr,
+            destroyCancellationToken
+        );
+
+        // Add output lines
+        foreach (var line in stdout.Lines)
+        {
+            _outputBuffer.Add(line);
+        }
+
+        // Add error lines
+        foreach (var line in stderr.Lines)
+        {
+            _outputBuffer.Add($&quot;[Error] {line}&quot;);
+        }
+
+        _scrollView.ScrollToEnd();
+        _inputField.ActivateInputField();
+    }
+}
+</code></pre>
+<h3 id="with-unitask">With UniTask</h3>
+<pre><code class="lang-csharp">#if UNI_TERMINAL_UNI_TASK_SUPPORT
+using Cysharp.Threading.Tasks;
+
+async UniTaskVoid ExecuteCommand(string command)
+{
+    var stdout = new UniTaskListTextWriter();
+    var stderr = new UniTaskListTextWriter();
+
+    await _terminal.ExecuteUniTaskAsync(command, stdout, stderr);
+
+    foreach (var line in stdout.Lines)
+    {
+        _outputBuffer.Add(line);
+    }
+
+    _scrollView.ScrollToEnd();
+}
+#endif
+</code></pre>
+<h2 id="api-reference">API Reference</h2>
+<h3 id="flyweightscrollviewbase">FlyweightScrollViewBase</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Initialize&lt;TData, TView&gt;(prefab, collection)</code></td>
+<td>Initialize with data source</td>
+</tr>
+<tr>
+<td><code>ScrollToEnd()</code></td>
+<td>Scroll to the last item</td>
+</tr>
+<tr>
+<td><code>ScrollToStart()</code></td>
+<td>Scroll to the first item</td>
+</tr>
+<tr>
+<td><code>ScrollToIndex(int index)</code></td>
+<td>Scroll to specific index</td>
+</tr>
+<tr>
+<td><code>Refresh()</code></td>
+<td>Force refresh visible items</td>
+</tr>
+</tbody>
+</table>
+<h3 id="circularbuffer-1">CircularBuffer<t></t></h3>
+<table>
+<thead>
+<tr>
+<th>Property/Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Capacity</code></td>
+<td>Maximum number of items</td>
+</tr>
+<tr>
+<td><code>Count</code></td>
+<td>Current number of items</td>
+</tr>
+<tr>
+<td><code>Add(T item)</code></td>
+<td>Add item (removes oldest if full)</td>
+</tr>
+<tr>
+<td><code>Clear()</code></td>
+<td>Remove all items</td>
+</tr>
+<tr>
+<td><code>this[int index]</code></td>
+<td>Get item at index</td>
+</tr>
+</tbody>
+</table>
+<h3 id="flyweightscrollviewitembase">FlyweightScrollViewItemBase<t></t></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Bind(T data)</code></td>
+<td>Called when item becomes visible</td>
+</tr>
+<tr>
+<td><code>Unbind()</code></td>
+<td>Called when item becomes hidden</td>
+</tr>
+</tbody>
+</table>
+<h2 id="performance-tips">Performance Tips</h2>
+<ol>
+<li><strong>Set appropriate buffer size</strong> - Balance memory vs history length</li>
+<li><strong>Keep item views simple</strong> - Minimize components per item</li>
+<li><strong>Use object pooling</strong> - FlyweightScrollView handles this automatically</li>
+<li><strong>Batch additions</strong> - Add multiple items, then call Refresh once</li>
+</ol>
+<pre><code class="lang-csharp">// Good: Batch additions
+foreach (var line in lines)
+{
+    _buffer.Add(line);
+}
+_scrollView.ScrollToEnd();  // Single refresh
+
+// Avoid: Refresh after each addition
+foreach (var line in lines)
+{
+    _buffer.Add(line);
+    _scrollView.ScrollToEnd();  // Multiple refreshes
+}
+</code></pre>
+<h2 id="prefabs">Prefabs</h2>
+<p>UniTerminal includes ready-to-use prefabs:</p>
+<ul>
+<li><code>FlyweightVerticalScrollView.prefab</code></li>
+<li><code>FlyweightHorizontalScrollView.prefab</code></li>
+</ul>
+<p>Located in: <code>Packages/jp.xeon.uni-terminal/Runtime/Prefabs/</code></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/articles/flyweight-scrollview.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

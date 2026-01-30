@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Utilities | UniTerminal </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Utilities | UniTerminal ">
+      
+      
+      <link rel="icon" href="../../images/favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/articles/commands/utilities.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../images/logo.svg" alt="UniTerminal">
+            UniTerminal
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="utilities">Utilities</h1>
+
+<p>General utility commands for help and history management.</p>
+<h2 id="help">help</h2>
+<p>Display help information for commands.</p>
+<h3 id="synopsis">Synopsis</h3>
+<pre><code class="lang-bash">help [command]
+</code></pre>
+<h3 id="description">Description</h3>
+<p>Without arguments, displays a list of all available commands with brief descriptions. When a command name is provided, displays detailed help for that specific command including usage, options, and examples.</p>
+<h3 id="arguments">Arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>command</code></td>
+<td>Optional. Name of the command to get help for.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples">Examples</h3>
+<pre><code class="lang-bash"># List all available commands
+help
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Available commands:
+  cat        Concatenate and display file contents
+  cd         Change working directory
+  component  Manage GameObject components
+  diff       Compare files line by line
+  echo       Echo arguments to stdout
+  find       Search for files in a directory hierarchy
+  go         GameObject operations
+  grep       Filter lines matching a pattern
+  help       Display help for commands
+  hierarchy  Display scene hierarchy
+  history    Display or manage command history
+  less       View file contents page by page
+  ls         List directory contents
+  property   Get or set component property values
+  pwd        Print current working directory
+  transform  Manipulate GameObject transforms
+
+Use 'help &lt;command&gt;' for detailed information.
+</code></pre>
+<pre><code class="lang-bash"># Get help for specific command
+help ls
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>ls - List directory contents
+
+Usage: ls [options] [path...]
+
+Options:
+  -a, --all             Do not ignore entries starting with .
+  -l, --long            Use a long listing format
+  -h, --human-readable  Print sizes in human readable format
+  -r, --reverse         Reverse order while sorting
+  -R, --recursive       List subdirectories recursively
+  -S, --sort            Sort by: name, size, time
+</code></pre>
+<pre><code class="lang-bash"># Get help for Unity commands
+help hierarchy
+help component
+help property
+</code></pre>
+<h3 id="exit-codes">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Unknown command specified</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Registry not configured</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="history">history</h2>
+<p>Display or manage command history.</p>
+<h3 id="synopsis-1">Synopsis</h3>
+<pre><code class="lang-bash">history [-c] [-d position] [-n count] [-r]
+</code></pre>
+<h3 id="description-1">Description</h3>
+<p>Displays the command history list with line numbers. Can also be used to clear history or delete specific entries.</p>
+<h3 id="options">Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-c</code></td>
+<td><code>--clear</code></td>
+<td>Clear all history entries</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td><code>--delete</code></td>
+<td>Delete the history entry at the specified position (1-based)</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td><code>--number</code></td>
+<td>Display only the last N entries</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td><code>--reverse</code></td>
+<td>Display history in reverse order (newest first)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples-1">Examples</h3>
+<pre><code class="lang-bash"># Display full history
+history
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>    1  ls -la
+    2  cd ~/Projects
+    3  hierarchy -r
+    4  go create Player
+    5  component add /Player Rigidbody
+    6  property set /Player Rigidbody mass 10
+</code></pre>
+<pre><code class="lang-bash"># Show last 5 commands
+history -n 5
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>    2  cd ~/Projects
+    3  hierarchy -r
+    4  go create Player
+    5  component add /Player Rigidbody
+    6  property set /Player Rigidbody mass 10
+</code></pre>
+<pre><code class="lang-bash"># Show history in reverse order
+history -r
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>    6  property set /Player Rigidbody mass 10
+    5  component add /Player Rigidbody
+    4  go create Player
+    3  hierarchy -r
+    2  cd ~/Projects
+    1  ls -la
+</code></pre>
+<pre><code class="lang-bash"># Delete specific entry
+history -d 3
+
+# Clear all history
+history -c
+</code></pre>
+<h3 id="history-format">History Format</h3>
+<p>Each history entry is displayed with:</p>
+<ul>
+<li><strong>Line number</strong> (1-based, right-aligned in 5 characters)</li>
+<li><strong>Command</strong> (the exact command as entered)</li>
+</ul>
+<h3 id="notes">Notes</h3>
+<ul>
+<li>History is maintained per Terminal instance</li>
+<li>History clearing and deletion require the Terminal to be configured with history callbacks</li>
+<li>The current command being executed is typically not included in history until after execution</li>
+</ul>
+<h3 id="exit-codes-1">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>2</td>
+<td>History operation not supported or position out of range</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="practical-examples">Practical Examples</h2>
+<h3 id="reviewing-recent-work">Reviewing Recent Work</h3>
+<pre><code class="lang-bash"># See what commands you ran recently
+history -n 10
+
+# Find specific commands in history (combine with grep)
+history | grep -p &quot;component&quot;
+</code></pre>
+<h3 id="cleaning-up-history">Cleaning Up History</h3>
+<pre><code class="lang-bash"># Remove a mistaken command
+history -d 5
+
+# Start fresh
+history -c
+</code></pre>
+<h3 id="getting-command-help">Getting Command Help</h3>
+<pre><code class="lang-bash"># Explore available commands
+help
+
+# Learn about a specific command
+help transform
+
+# Check Unity-specific commands
+help hierarchy
+help go
+help component
+help property
+</code></pre>
+<h3 id="quick-reference">Quick Reference</h3>
+<pre><code class="lang-bash"># Common help queries
+help ls          # File listing options
+help find        # File search options
+help grep        # Pattern matching syntax
+help diff        # File comparison options
+help hierarchy   # Scene hierarchy display
+help go          # GameObject operations
+help transform   # Transform manipulation
+help component   # Component management
+help property    # Property access via reflection
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/articles/commands/utilities.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

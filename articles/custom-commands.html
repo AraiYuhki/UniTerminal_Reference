@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Custom Commands | UniTerminal </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Custom Commands | UniTerminal ">
+      
+      
+      <link rel="icon" href="../images/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/articles/custom-commands.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.svg" alt="UniTerminal">
+            UniTerminal
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="custom-commands">Custom Commands</h1>
+
+<p>Learn how to create and register your own commands in UniTerminal.</p>
+<h2 id="basic-command-structure">Basic Command Structure</h2>
+<p>Every command must implement the <code>ICommand</code> interface:</p>
+<pre><code class="lang-csharp">using Xeon.UniTerminal;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+[Command(&quot;mycommand&quot;, &quot;Description of my command&quot;)]
+public class MyCommand : ICommand
+{
+    public string CommandName =&gt; &quot;mycommand&quot;;
+    public string Description =&gt; &quot;Description of my command&quot;;
+
+    public async Task&lt;ExitCode&gt; ExecuteAsync(
+        CommandContext context,
+        CancellationToken ct)
+    {
+        await context.Stdout.WriteLineAsync(&quot;Hello from MyCommand!&quot;, ct);
+        return ExitCode.Success;
+    }
+
+    public IEnumerable&lt;string&gt; GetCompletions(CompletionContext context)
+    {
+        yield break;
+    }
+}
+</code></pre>
+<h2 id="adding-options">Adding Options</h2>
+<p>Use the <code>[Option]</code> attribute to define command-line options:</p>
+<pre><code class="lang-csharp">[Command(&quot;greet&quot;, &quot;Greet a user&quot;)]
+public class GreetCommand : ICommand
+{
+    [Option(&quot;name&quot;, &quot;n&quot;, Description = &quot;Name to greet&quot;)]
+    public string Name;
+
+    [Option(&quot;times&quot;, &quot;t&quot;, Description = &quot;Number of times to greet&quot;)]
+    public int Times = 1;
+
+    [Option(&quot;uppercase&quot;, &quot;u&quot;, Description = &quot;Output in uppercase&quot;)]
+    public bool Uppercase;
+
+    public string CommandName =&gt; &quot;greet&quot;;
+    public string Description =&gt; &quot;Greet a user&quot;;
+
+    public async Task&lt;ExitCode&gt; ExecuteAsync(
+        CommandContext context,
+        CancellationToken ct)
+    {
+        var greeting = $&quot;Hello, {Name ?? &quot;World&quot;}!&quot;;
+
+        if (Uppercase)
+            greeting = greeting.ToUpper();
+
+        for (int i = 0; i &lt; Times; i++)
+        {
+            await context.Stdout.WriteLineAsync(greeting, ct);
+        }
+
+        return ExitCode.Success;
+    }
+
+    public IEnumerable&lt;string&gt; GetCompletions(CompletionContext context)
+    {
+        yield break;
+    }
+}
+</code></pre>
+<p><strong>Usage:</strong></p>
+<pre><code class="lang-bash">greet                          # Hello, World!
+greet -n Alice                 # Hello, Alice!
+greet --name=Bob --times=3     # Hello, Bob! (3 times)
+greet -n Unity -t 2 -u         # HELLO, UNITY! (2 times)
+</code></pre>
+<h2 id="option-types">Option Types</h2>
+<h3 id="supported-types">Supported Types</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Example</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>string</code></td>
+<td><code>&quot;hello&quot;</code></td>
+<td><code>--option=value</code></td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>42</code></td>
+<td><code>--count=42</code></td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td><code>3.14</code></td>
+<td><code>--value=3.14</code></td>
+</tr>
+<tr>
+<td><code>bool</code></td>
+<td><code>true/false</code></td>
+<td><code>--flag</code> (presence = true)</td>
+</tr>
+<tr>
+<td><code>Vector2</code></td>
+<td><code>1,2</code></td>
+<td><code>--pos=1,2</code></td>
+</tr>
+<tr>
+<td><code>Vector3</code></td>
+<td><code>1,2,3</code></td>
+<td><code>--pos=1,2,3</code></td>
+</tr>
+<tr>
+<td><code>Color</code></td>
+<td><code>1,0,0,1</code></td>
+<td><code>--color=1,0,0,1</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="positional-arguments">Positional Arguments</h3>
+<p>Arguments without option flags are passed as positional arguments in <code>context.Arguments</code>:</p>
+<pre><code class="lang-csharp">[Command(&quot;move&quot;, &quot;Move to position&quot;)]
+public class MoveCommand : ICommand
+{
+    public string CommandName =&gt; &quot;move&quot;;
+    public string Description =&gt; &quot;Move to position&quot;;
+
+    public async Task&lt;ExitCode&gt; ExecuteAsync(
+        CommandContext context,
+        CancellationToken ct)
+    {
+        // move /Player 1,2,3
+        // context.Arguments[0] = &quot;/Player&quot;
+        // context.Arguments[1] = &quot;1,2,3&quot;
+
+        if (context.Arguments.Count &lt; 2)
+        {
+            await context.Stderr.WriteLineAsync(
+                &quot;Usage: move &lt;object&gt; &lt;position&gt;&quot;, ct);
+            return ExitCode.UsageError;
+        }
+
+        var objectPath = context.Arguments[0];
+        var position = context.Arguments[1];
+
+        // ... implementation
+
+        return ExitCode.Success;
+    }
+
+    public IEnumerable&lt;string&gt; GetCompletions(CompletionContext context)
+    {
+        yield break;
+    }
+}
+</code></pre>
+<h2 id="reading-from-stdin">Reading from Stdin</h2>
+<p>Process input from previous commands in a pipeline:</p>
+<pre><code class="lang-csharp">[Command(&quot;count&quot;, &quot;Count lines or words&quot;)]
+public class CountCommand : ICommand
+{
+    [Option(&quot;words&quot;, &quot;w&quot;, Description = &quot;Count words instead of lines&quot;)]
+    public bool CountWords;
+
+    public string CommandName =&gt; &quot;count&quot;;
+    public string Description =&gt; &quot;Count lines or words&quot;;
+
+    public async Task&lt;ExitCode&gt; ExecuteAsync(
+        CommandContext context,
+        CancellationToken ct)
+    {
+        int count = 0;
+        string line;
+
+        while ((line = await context.Stdin.ReadLineAsync(ct)) != null)
+        {
+            if (CountWords)
+            {
+                count += line.Split(
+                    new[] { ' ', '\t' },
+                    StringSplitOptions.RemoveEmptyEntries
+                ).Length;
+            }
+            else
+            {
+                count++;
+            }
+        }
+
+        await context.Stdout.WriteLineAsync(count.ToString(), ct);
+        return ExitCode.Success;
+    }
+
+    public IEnumerable&lt;string&gt; GetCompletions(CompletionContext context)
+    {
+        yield break;
+    }
+}
+</code></pre>
+<p><strong>Usage:</strong></p>
+<pre><code class="lang-bash">hierarchy -r | count           # Count objects
+echo &quot;Hello World&quot; | count -w  # Count words (2)
+cat file.txt | count           # Count lines in file
+</code></pre>
+<h2 id="tab-completion">Tab Completion</h2>
+<p>Implement <code>GetCompletions</code> to provide context-aware suggestions:</p>
+<pre><code class="lang-csharp">[Command(&quot;load&quot;, &quot;Load a scene&quot;)]
+public class LoadSceneCommand : ICommand
+{
+    [Option(&quot;scene&quot;, &quot;s&quot;, Description = &quot;Scene name&quot;)]
+    public string SceneName;
+
+    public string CommandName =&gt; &quot;load&quot;;
+    public string Description =&gt; &quot;Load a scene&quot;;
+
+    public async Task&lt;ExitCode&gt; ExecuteAsync(
+        CommandContext context,
+        CancellationToken ct)
+    {
+        // ... implementation
+        return ExitCode.Success;
+    }
+
+    public IEnumerable&lt;string&gt; GetCompletions(CompletionContext context)
+    {
+        // Check if completing the --scene option
+        if (context.CurrentOption == &quot;scene&quot; ||
+            context.CurrentOption == &quot;s&quot;)
+        {
+            // Return available scene names
+            var sceneCount = SceneManager.sceneCountInBuildSettings;
+            for (int i = 0; i &lt; sceneCount; i++)
+            {
+                var path = SceneUtility.GetScenePathByBuildIndex(i);
+                var name = System.IO.Path.GetFileNameWithoutExtension(path);
+
+                if (name.StartsWith(context.PartialValue,
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    yield return name;
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="registering-commands">Registering Commands</h2>
+<h3 id="manual-registration">Manual Registration</h3>
+<pre><code class="lang-csharp">var terminal = new Terminal(
+    Application.dataPath,
+    Application.dataPath,
+    registerBuiltInCommands: true
+);
+
+// Register individual commands
+terminal.Registry.Register&lt;GreetCommand&gt;();
+terminal.Registry.Register&lt;CountCommand&gt;();
+terminal.Registry.Register&lt;LoadSceneCommand&gt;();
+</code></pre>
+<h3 id="assembly-registration">Assembly Registration</h3>
+<p>Register all commands from an assembly:</p>
+<pre><code class="lang-csharp">// Register all commands in current assembly
+terminal.Registry.RegisterFromAssembly(
+    typeof(MyCommand).Assembly
+);
+
+// Register from multiple assemblies
+terminal.Registry.RegisterFromAssembly(
+    typeof(GameCommands).Assembly
+);
+terminal.Registry.RegisterFromAssembly(
+    typeof(DebugCommands).Assembly
+);
+</code></pre>
+<h2 id="exit-codes">Exit Codes</h2>
+<p>Return appropriate exit codes:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Constant</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>ExitCode.Success</code></td>
+<td>Command completed successfully</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>ExitCode.UsageError</code></td>
+<td>Invalid arguments or usage</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>ExitCode.RuntimeError</code></td>
+<td>Runtime error occurred</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">public async Task&lt;ExitCode&gt; ExecuteAsync(
+    CommandContext context,
+    CancellationToken ct)
+{
+    if (context.Arguments.Count == 0)
+    {
+        await context.Stderr.WriteLineAsync(
+            &quot;Error: Missing required argument&quot;, ct);
+        return ExitCode.UsageError;
+    }
+
+    try
+    {
+        // ... do work
+        return ExitCode.Success;
+    }
+    catch (Exception ex)
+    {
+        await context.Stderr.WriteLineAsync(
+            $&quot;Error: {ex.Message}&quot;, ct);
+        return ExitCode.RuntimeError;
+    }
+}
+</code></pre>
+<h2 id="commandcontext-properties">CommandContext Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Stdin</code></td>
+<td><code>IAsyncTextReader</code></td>
+<td>Input stream</td>
+</tr>
+<tr>
+<td><code>Stdout</code></td>
+<td><code>IAsyncTextWriter</code></td>
+<td>Output stream</td>
+</tr>
+<tr>
+<td><code>Stderr</code></td>
+<td><code>IAsyncTextWriter</code></td>
+<td>Error stream</td>
+</tr>
+<tr>
+<td><code>Arguments</code></td>
+<td><code>IReadOnlyList&lt;string&gt;</code></td>
+<td>Positional arguments</td>
+</tr>
+<tr>
+<td><code>WorkingDirectory</code></td>
+<td><code>string</code></td>
+<td>Current working directory</td>
+</tr>
+<tr>
+<td><code>HomeDirectory</code></td>
+<td><code>string</code></td>
+<td>Home directory</td>
+</tr>
+<tr>
+<td><code>Terminal</code></td>
+<td><code>Terminal</code></td>
+<td>Terminal instance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Use async/await properly</strong> - Don't block the main thread</li>
+<li><strong>Support cancellation</strong> - Check <code>ct.IsCancellationRequested</code></li>
+<li><strong>Write errors to Stderr</strong> - Keep Stdout for data output</li>
+<li><strong>Return correct exit codes</strong> - For proper pipeline handling</li>
+<li><strong>Implement completions</strong> - Better user experience</li>
+<li><strong>Keep commands focused</strong> - One command, one purpose</li>
+</ol>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/articles/custom-commands.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Unity Commands | UniTerminal </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Unity Commands | UniTerminal ">
+      
+      
+      <link rel="icon" href="../../images/favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/articles/commands/unity-commands.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../images/logo.svg" alt="UniTerminal">
+            UniTerminal
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="unity-commands">Unity Commands</h1>
+
+<p>Commands for manipulating Unity GameObjects, Transforms, and Components.</p>
+<h2 id="hierarchy">hierarchy</h2>
+<p>Display the scene hierarchy in a tree structure.</p>
+<h3 id="synopsis">Synopsis</h3>
+<pre><code class="lang-bash">hierarchy [-r] [-d depth] [-a] [-l] [-s scene] [-n pattern] [-c component] [-t tag] [-y layer] [path]
+</code></pre>
+<h3 id="description">Description</h3>
+<p>Displays GameObjects in the current scene as a tree structure. Can filter by name, component, tag, or layer. When a path is specified, shows children of that object.</p>
+<h3 id="options">Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-r</code></td>
+<td><code>--recursive</code></td>
+<td>Show children recursively</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td><code>--depth</code></td>
+<td>Maximum depth to display (-1 = unlimited, default)</td>
+</tr>
+<tr>
+<td><code>-a</code></td>
+<td><code>--all</code></td>
+<td>Include inactive objects</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td><code>--long</code></td>
+<td>Show detailed information (active state, component count, tag)</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td><code>--scene</code></td>
+<td>Target scene name. Use <code>list</code> to show loaded scenes</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td><code>--name</code></td>
+<td>Filter by name (supports <code>*</code> and <code>?</code> wildcards)</td>
+</tr>
+<tr>
+<td><code>-c</code></td>
+<td><code>--component</code></td>
+<td>Filter by component type</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td><code>--tag</code></td>
+<td>Filter by tag</td>
+</tr>
+<tr>
+<td><code>-y</code></td>
+<td><code>--layer</code></td>
+<td>Filter by layer name or number (0-31)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="arguments">Arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td>Optional. Show children of this object instead of scene roots.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="output-formats">Output Formats</h3>
+<p><strong>Normal format:</strong></p>
+<pre><code>Scene: SampleScene (3 root objects)
+├── Main Camera
+├── Directional Light
+└── Player
+    ├── Model
+    └── Weapon
+</code></pre>
+<p><strong>Long format (<code>-l</code>):</strong></p>
+<pre><code>Scene: SampleScene (3 root objects)
+├── [A] Main Camera              (4 components) [MainCamera]
+├── [A] Directional Light        (2 components) [Untagged]
+└── [A] Player                   (5 components) [Player]
+</code></pre>
+<p><code>[A]</code> = Active, <code>[-]</code> = Inactive</p>
+<h3 id="examples">Examples</h3>
+<pre><code class="lang-bash"># Show root objects in active scene
+hierarchy
+
+# Recursive display
+hierarchy -r
+
+# Show with details
+hierarchy -l
+
+# Limit depth to 3 levels
+hierarchy -r -d 3
+
+# Include inactive objects
+hierarchy -r -a
+
+# Filter by name (wildcards)
+hierarchy -n &quot;Player*&quot;
+hierarchy -n &quot;*Enemy*&quot;
+
+# Filter by component
+hierarchy -c Rigidbody
+hierarchy -r -c &quot;UnityEngine.UI.Image&quot;
+
+# Filter by tag
+hierarchy -t Player
+
+# Filter by layer
+hierarchy -y 5
+hierarchy -y &quot;UI&quot;
+
+# Show children of specific object
+hierarchy /Canvas
+
+# List loaded scenes
+hierarchy -s list
+
+# Target specific scene
+hierarchy -s &quot;Level1&quot;
+
+# Combine filters
+hierarchy -r -a -n &quot;*Manager*&quot; -c MonoBehaviour
+</code></pre>
+<h3 id="exit-codes">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Invalid filter pattern or unknown layer/component</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GameObject or scene not found</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="go">go</h2>
+<p>Manage GameObjects (create, delete, find, rename, active, clone, info).</p>
+<h3 id="synopsis-1">Synopsis</h3>
+<pre><code class="lang-bash">go &lt;subcommand&gt; [options] [arguments]
+</code></pre>
+<h3 id="subcommands">Subcommands</h3>
+<h4 id="create">create</h4>
+<p>Create a new GameObject.</p>
+<pre><code class="lang-bash">go create [name] [--primitive type] [--parent path] [--position x,y,z] [--rotation x,y,z] [--tag tag]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--primitive</code>, <code>-p</code></td>
+<td>Primitive type: Cube, Sphere, Capsule, Cylinder, Plane, Quad</td>
+</tr>
+<tr>
+<td><code>--parent</code></td>
+<td>Parent object path</td>
+</tr>
+<tr>
+<td><code>--position</code></td>
+<td>Initial world position (x,y,z)</td>
+</tr>
+<tr>
+<td><code>--rotation</code></td>
+<td>Initial rotation in euler angles (x,y,z)</td>
+</tr>
+<tr>
+<td><code>--tag</code>, <code>-t</code></td>
+<td>Tag to assign</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<pre><code class="lang-bash"># Create empty GameObject
+go create MyObject
+
+# Create with name and position
+go create Player --position 0,1,0
+
+# Create primitive
+go create MyCube --primitive Cube
+
+# Create as child of another object
+go create Child --parent /Parent
+
+# Create with tag
+go create Enemy --tag Enemy
+</code></pre>
+<h4 id="delete">delete</h4>
+<p>Delete a GameObject.</p>
+<pre><code class="lang-bash">go delete &lt;path&gt; [--immediate] [--children]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--immediate</code></td>
+<td>Use DestroyImmediate instead of Destroy</td>
+</tr>
+<tr>
+<td><code>--children</code></td>
+<td>Delete only children, keep the object itself</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<pre><code class="lang-bash"># Delete object
+go delete /MyObject
+
+# Delete immediately (for editor scripts)
+go delete /Temp --immediate
+
+# Delete only children
+go delete /Parent --children
+</code></pre>
+<h4 id="find">find</h4>
+<p>Search for GameObjects.</p>
+<pre><code class="lang-bash">go find [-n name] [-t tag] [-c component] [-i]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code>, <code>--name</code></td>
+<td>Name pattern (partial match, case-insensitive)</td>
+</tr>
+<tr>
+<td><code>-t</code>, <code>--tag</code></td>
+<td>Tag name</td>
+</tr>
+<tr>
+<td><code>-c</code>, <code>--component</code></td>
+<td>Component type</td>
+</tr>
+<tr>
+<td><code>-i</code>, <code>--inactive</code></td>
+<td>Include inactive objects</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<pre><code class="lang-bash"># Find by name
+go find -n Player
+go find -n &quot;Enemy&quot;
+
+# Find by tag
+go find -t Player
+
+# Find by component
+go find -c Rigidbody
+
+# Include inactive objects
+go find -n Manager -i
+
+# Combine filters
+go find -t Enemy -c EnemyAI
+</code></pre>
+<h4 id="rename">rename</h4>
+<p>Rename a GameObject.</p>
+<pre><code class="lang-bash">go rename &lt;path&gt; &lt;new-name&gt;
+</code></pre>
+<p><strong>Examples:</strong></p>
+<pre><code class="lang-bash">go rename /OldName NewName
+go rename /Player/Weapon Sword
+</code></pre>
+<h4 id="active">active</h4>
+<p>Get or set active state.</p>
+<pre><code class="lang-bash">go active &lt;path&gt; [--set true|false] [--toggle]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-s</code>, <code>--set</code></td>
+<td>Set active state (true/false)</td>
+</tr>
+<tr>
+<td><code>--toggle</code></td>
+<td>Toggle current state</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<pre><code class="lang-bash"># Show active state
+go active /MyObject
+
+# Activate
+go active /MyObject --set true
+
+# Deactivate
+go active /MyObject --set false
+
+# Toggle
+go active /MyObject --toggle
+</code></pre>
+<h4 id="clone">clone</h4>
+<p>Clone a GameObject.</p>
+<pre><code class="lang-bash">go clone &lt;path&gt; [-n name] [--parent path] [--count N]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code>, <code>--name</code></td>
+<td>New name for clone(s)</td>
+</tr>
+<tr>
+<td><code>--parent</code></td>
+<td>Parent for clones (default: same as original)</td>
+</tr>
+<tr>
+<td><code>--count</code></td>
+<td>Number of clones to create</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<pre><code class="lang-bash"># Clone object
+go clone /Template
+
+# Clone with new name
+go clone /Enemy -n EnemyClone
+
+# Clone multiple
+go clone /Bullet --count 10
+
+# Clone to different parent
+go clone /Prefab --parent /Container
+</code></pre>
+<h4 id="info">info</h4>
+<p>Display detailed information about a GameObject.</p>
+<pre><code class="lang-bash">go info &lt;path&gt;
+</code></pre>
+<p><strong>Output includes:</strong></p>
+<ul>
+<li>Name, path, active state</li>
+<li>Tag, layer, static flag</li>
+<li>Transform (position, rotation, scale)</li>
+<li>Component list</li>
+<li>Children list</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-bash">go info /Player
+</code></pre>
+<h3 id="exit-codes-1">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Missing subcommand or invalid arguments</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GameObject not found, invalid primitive type, or operation failed</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="transform">transform</h2>
+<p>Manipulate GameObject transforms.</p>
+<h3 id="synopsis-2">Synopsis</h3>
+<pre><code class="lang-bash">transform &lt;path&gt; [-p pos] [-P pos] [-r rot] [-R rot] [-s scale] [--parent path] [-w]
+</code></pre>
+<h3 id="description-1">Description</h3>
+<p>Gets or sets transform properties. Without options, displays current transform information.</p>
+<h3 id="options-1">Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-p</code></td>
+<td><code>--position</code></td>
+<td>Set world position (x,y,z)</td>
+</tr>
+<tr>
+<td><code>-P</code></td>
+<td><code>--local-position</code></td>
+<td>Set local position (x,y,z)</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td><code>--rotation</code></td>
+<td>Set world rotation in euler angles (x,y,z)</td>
+</tr>
+<tr>
+<td><code>-R</code></td>
+<td><code>--local-rotation</code></td>
+<td>Set local rotation in euler angles (x,y,z)</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td><code>--scale</code></td>
+<td>Set local scale (x,y,z or single value for uniform)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--parent</code></td>
+<td>Set parent (use <code>/</code>, <code>null</code>, or <code>none</code> to unparent)</td>
+</tr>
+<tr>
+<td><code>-w</code></td>
+<td><code>--world</code></td>
+<td>Maintain world position when changing parent (default: true)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vector-format">Vector Format</h3>
+<p>Vectors can be specified as:</p>
+<ul>
+<li><code>x,y,z</code> - Three components</li>
+<li><code>x,y</code> - Two components (z = 0)</li>
+<li><code>n</code> - Single value (applied to all components)</li>
+</ul>
+<h3 id="examples-1">Examples</h3>
+<pre><code class="lang-bash"># Display transform info
+transform /Player
+
+# Set world position
+transform /Player -p 10,0,5
+
+# Set local position
+transform /Player -P 0,1,0
+
+# Set world rotation
+transform /Player -r 0,90,0
+
+# Set local rotation
+transform /Player -R 45,0,0
+
+# Set uniform scale
+transform /Player -s 2
+
+# Set non-uniform scale
+transform /Player -s 1,2,1
+
+# Set parent
+transform /Child --parent /NewParent
+
+# Unparent (move to root)
+transform /Child --parent /
+transform /Child --parent null
+
+# Set multiple properties
+transform /Player -p 0,1,0 -r 0,180,0 -s 1.5,1.5,1.5
+</code></pre>
+<h3 id="output">Output</h3>
+<p><strong>Information display:</strong></p>
+<pre><code>Transform: Player
+  World Position:  (10.00, 0.00, 5.00)
+  Local Position:  (10.00, 0.00, 5.00)
+  World Rotation:  (0.00, 90.00, 0.00)
+  Local Rotation:  (0.00, 90.00, 0.00)
+  Local Scale:     (1.00, 1.00, 1.00)
+  Parent:          (none)
+  Children:        3
+  Sibling Index:   0
+</code></pre>
+<p><strong>Modification display:</strong></p>
+<pre><code>Transform: Player
+  Position: (0.00, 0.00, 0.00) -&gt; (10.00, 0.00, 5.00)
+</code></pre>
+<h3 id="exit-codes-2">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Invalid vector format</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GameObject or parent not found, circular reference</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="component">component</h2>
+<p>Manage GameObject components.</p>
+<h3 id="synopsis-3">Synopsis</h3>
+<pre><code class="lang-bash">component &lt;subcommand&gt; &lt;path&gt; [arguments] [-a] [-v] [-i] [-n namespace]
+</code></pre>
+<h3 id="options-global">Options (Global)</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a</code></td>
+<td><code>--all</code></td>
+<td>Remove all matching components / include all members</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td><code>--verbose</code></td>
+<td>Show full type names</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td><code>--immediate</code></td>
+<td>Use DestroyImmediate for removal</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td><code>--namespace</code></td>
+<td>Namespace for type resolution</td>
+</tr>
+</tbody>
+</table>
+<h3 id="subcommands-1">Subcommands</h3>
+<h4 id="list">list</h4>
+<p>List components on a GameObject.</p>
+<pre><code class="lang-bash">component list &lt;path&gt; [-v]
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Components on Player (5):
+  [0] Transform
+  [1] Rigidbody (enabled)
+  [2] CapsuleCollider (enabled)
+  [3] PlayerController (enabled)
+  [4] Animator (disabled)
+</code></pre>
+<p><strong>Verbose output (<code>-v</code>):</strong></p>
+<pre><code>Components on Player (5):
+  [0] Transform                    UnityEngine.Transform
+  [1] Rigidbody                    UnityEngine.Rigidbody
+  ...
+</code></pre>
+<h4 id="add">add</h4>
+<p>Add a component to a GameObject.</p>
+<pre><code class="lang-bash">component add &lt;path&gt; &lt;type&gt;
+</code></pre>
+<p><strong>Examples:</strong></p>
+<pre><code class="lang-bash">component add /Player Rigidbody
+component add /Player BoxCollider
+component add /Canvas &quot;UnityEngine.UI.Image&quot;
+</code></pre>
+<h4 id="remove">remove</h4>
+<p>Remove a component from a GameObject.</p>
+<pre><code class="lang-bash">component remove &lt;path&gt; &lt;type|index&gt; [-a] [-i]
+</code></pre>
+<p><strong>Examples:</strong></p>
+<pre><code class="lang-bash"># Remove by type name
+component remove /Player Rigidbody
+
+# Remove by index
+component remove /Player 2
+
+# Remove all of type
+component remove /Player BoxCollider -a
+
+# Remove immediately
+component remove /Player Rigidbody --immediate
+</code></pre>
+<p><strong>Note:</strong> Transform cannot be removed.</p>
+<h4 id="info-1">info</h4>
+<p>Display detailed component information.</p>
+<pre><code class="lang-bash">component info &lt;path&gt; &lt;type|index&gt;
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Component: Rigidbody
+  Type: UnityEngine.Rigidbody
+  GameObject: /Player
+  Enabled: true
+  Properties:
+    mass: 1 (Single)
+    drag: 0 (Single)
+    angularDrag: 0.05 (Single)
+    useGravity: true (Boolean)
+    ...
+</code></pre>
+<h4 id="enable--disable">enable / disable</h4>
+<p>Enable or disable a component.</p>
+<pre><code class="lang-bash">component enable &lt;path&gt; &lt;type|index&gt;
+component disable &lt;path&gt; &lt;type|index&gt;
+</code></pre>
+<p><strong>Examples:</strong></p>
+<pre><code class="lang-bash">component enable /Player Rigidbody
+component disable /Player 3
+</code></pre>
+<p><strong>Note:</strong> Only Behaviour, Collider, and Renderer components support enable/disable.</p>
+<h3 id="exit-codes-3">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Missing arguments or index out of range</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GameObject not found, component type not found, cannot add/remove</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="property">property</h2>
+<p>Get or set component property values via reflection.</p>
+<h3 id="synopsis-4">Synopsis</h3>
+<pre><code class="lang-bash">property &lt;subcommand&gt; &lt;path&gt; &lt;component&gt; [property] [value] [-a] [-s] [-n namespace]
+</code></pre>
+<h3 id="options-2">Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Long</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a</code></td>
+<td><code>--all</code></td>
+<td>Include private fields</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td><code>--serialized</code></td>
+<td>Show only SerializeField members</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td><code>--namespace</code></td>
+<td>Component namespace for resolution</td>
+</tr>
+</tbody>
+</table>
+<h3 id="subcommands-2">Subcommands</h3>
+<h4 id="list-1">list</h4>
+<p>List all properties of a component.</p>
+<pre><code class="lang-bash">property list &lt;path&gt; &lt;component&gt; [-a] [-s]
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Properties of Rigidbody on /Player:
+  mass                     float          1
+  drag                     float          0
+  angularDrag              float          0.05
+  useGravity               bool           true
+  isKinematic              bool           false
+  velocity                 Vector3        (0.00, 0.00, 0.00) [readonly]
+  ...
+</code></pre>
+<h4 id="get">get</h4>
+<p>Get one or more property values.</p>
+<pre><code class="lang-bash">property get &lt;path&gt; &lt;component&gt; &lt;property[,property2,...]&gt;
+</code></pre>
+<p><strong>Examples:</strong></p>
+<pre><code class="lang-bash"># Single property
+property get /Player Rigidbody mass
+
+# Multiple properties
+property get /Player Transform position,rotation,localScale
+
+# Array element
+property get /Renderer MeshRenderer materials[0]
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Rigidbody.mass = 1 (float)
+</code></pre>
+<h4 id="set">set</h4>
+<p>Set a property value.</p>
+<pre><code class="lang-bash">property set &lt;path&gt; &lt;component&gt; &lt;property&gt; &lt;value&gt;
+</code></pre>
+<h3 id="supported-value-types">Supported Value Types</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Format</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int, float, double</td>
+<td>Number</td>
+<td><code>10</code>, <code>3.14</code></td>
+</tr>
+<tr>
+<td>bool</td>
+<td>true/false</td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+<tr>
+<td>string</td>
+<td>Text</td>
+<td><code>&quot;Hello World&quot;</code></td>
+</tr>
+<tr>
+<td>Vector2</td>
+<td>x,y</td>
+<td><code>1.5,2.0</code></td>
+</tr>
+<tr>
+<td>Vector3</td>
+<td>x,y,z</td>
+<td><code>1,2,3</code></td>
+</tr>
+<tr>
+<td>Vector4</td>
+<td>x,y,z,w</td>
+<td><code>1,2,3,4</code></td>
+</tr>
+<tr>
+<td>Color</td>
+<td>r,g,b,a (0-1)</td>
+<td><code>1,0,0,1</code> (red)</td>
+</tr>
+<tr>
+<td>Quaternion</td>
+<td>x,y,z,w</td>
+<td><code>0,0,0,1</code></td>
+</tr>
+<tr>
+<td>Enum</td>
+<td>Name or value</td>
+<td><code>ForceMode.Impulse</code>, <code>1</code></td>
+</tr>
+<tr>
+<td>Array element</td>
+<td>name[index]</td>
+<td><code>materials[0]</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples-2">Examples</h3>
+<pre><code class="lang-bash"># Numeric values
+property set /Player Rigidbody mass 10
+property set /Player Rigidbody drag 0.5
+
+# Boolean
+property set /Player Rigidbody useGravity false
+property set /Player Rigidbody isKinematic true
+
+# Vector3
+property set /Player Transform position 0,1,0
+property set /Player Transform localScale 2,2,2
+
+# Color (RGBA, 0-1 range)
+property set /Sprite SpriteRenderer color 1,0,0,1
+
+# String
+property set /Text TextMesh text &quot;Hello World&quot;
+
+# Enum
+property set /Player Rigidbody interpolation Interpolate
+
+# Array element
+property set /Renderer MeshRenderer materials[0] MyMaterial
+</code></pre>
+<h3 id="exit-codes-4">Exit Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Invalid value format or type conversion failed</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GameObject, component, or property not found; property is read-only</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="practical-examples">Practical Examples</h2>
+<h3 id="scene-setup-script">Scene Setup Script</h3>
+<pre><code class="lang-bash"># Create game structure
+go create GameManager
+go create Player --primitive Capsule --position 0,1,0
+go create Ground --primitive Plane
+transform /Ground -s 10,1,10
+
+# Add physics
+component add /Player Rigidbody
+component add /Player CapsuleCollider
+component add /Ground MeshCollider
+
+# Configure player physics
+property set /Player Rigidbody mass 1
+property set /Player Rigidbody drag 0.5
+property set /Player Rigidbody angularDrag 0.5
+
+# Create enemies
+go create EnemySpawner
+go create Enemy --primitive Cube --position 5,1,0 --tag Enemy
+go clone /Enemy --count 4
+</code></pre>
+<h3 id="debug-and-inspection">Debug and Inspection</h3>
+<pre><code class="lang-bash"># Find all Rigidbodies
+hierarchy -r -c Rigidbody
+
+# Inspect player state
+go info /Player
+component list /Player -v
+property list /Player Rigidbody
+
+# Check transform hierarchy
+hierarchy /Player -r -l
+
+# Find inactive objects
+hierarchy -r -a | grep &quot;\[-\]&quot;
+
+# Export scene structure
+hierarchy -r -l &gt; scene_structure.txt
+</code></pre>
+<h3 id="runtime-modifications">Runtime Modifications</h3>
+<pre><code class="lang-bash"># Toggle object visibility
+go active /UI/PauseMenu --toggle
+
+# Reset player position
+transform /Player -p 0,1,0 -r 0,0,0
+
+# Disable all enemy AI
+go find -t Enemy -c EnemyAI | component disable EnemyAI
+
+# Change material color
+property set /Player MeshRenderer materials[0].color 0,1,0,1
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/articles/commands/unity-commands.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

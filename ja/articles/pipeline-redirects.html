@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>パイプラインとリダイレクト | UniTerminal </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="パイプラインとリダイレクト | UniTerminal ">
+      
+      
+      <link rel="icon" href="../../images/favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/ja/articles/pipeline-redirects.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../images/logo.svg" alt="UniTerminal">
+            UniTerminal
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="パイプラインとリダイレクト">パイプラインとリダイレクト</h1>
+
+<p>UniTerminalは、強力なコマンドチェーンのためにLinuxライクなパイプラインとリダイレクトをサポートしています。</p>
+<h2 id="パイプライン">パイプライン</h2>
+<p>パイプ演算子（<code>|</code>）を使用してコマンドを接続します。1つのコマンドの出力が次のコマンドの入力になります。</p>
+<h3 id="基本構文">基本構文</h3>
+<pre><code class="lang-bash">command1 | command2 | command3
+</code></pre>
+<h3 id="使用例">使用例</h3>
+<pre><code class="lang-bash"># オブジェクトを検索してフィルタリング
+hierarchy -r | grep -p &quot;Player&quot;
+
+# 複数のフィルタをチェーン
+hierarchy -r -l | grep -p &quot;Enemy&quot; | grep -p &quot;Active: True&quot;
+
+# 結果をカウント
+hierarchy -r | grep -p &quot;Collider&quot; | count
+
+# ファイル内容を処理
+cat config.json | grep -p &quot;setting&quot;
+</code></pre>
+<h3 id="仕組み">仕組み</h3>
+<pre><code>┌─────────┐    stdout    ┌─────────┐    stdout    ┌─────────┐
+│ Command1 │────────────▶│ Command2 │────────────▶│ Command3 │
+└─────────┘              └─────────┘              └─────────┘
+                              ▲                        │
+                           stdin                    stdout
+                                                       ▼
+                                                   [出力]
+</code></pre>
+<ol>
+<li>Command1がstdoutに書き込む</li>
+<li>Command2がstdin（Command1の出力）から読み取る</li>
+<li>Command3がstdin（Command2の出力）から読み取る</li>
+<li>最終出力がターミナルに送られる</li>
+</ol>
+<h2 id="リダイレクト">リダイレクト</h2>
+<h3 id="出力リダイレクト">出力リダイレクト（<code>&gt;</code>）</h3>
+<p>コマンドの出力をファイルに書き込み、既存の内容を<strong>上書き</strong>します:</p>
+<pre><code class="lang-bash"># ヒエラルキーをファイルに保存
+hierarchy -r &gt; hierarchy.txt
+
+# フィルタリングした結果を保存
+hierarchy -r | grep -p &quot;Player&quot; &gt; players.txt
+
+# 設定をエクスポート
+property list /Settings GameConfig &gt; config_dump.txt
+</code></pre>
+<h3 id="追記リダイレクト">追記リダイレクト（<code>&gt;&gt;</code>）</h3>
+<p>コマンドの出力をファイルに追記し、既存の内容を<strong>保持</strong>します:</p>
+<pre><code class="lang-bash"># ログファイルに追加
+echo &quot;Session started&quot; &gt;&gt; session.log
+
+# ヒエラルキーのスナップショットを追記
+hierarchy -r &gt;&gt; snapshots.txt
+
+# レポートを構築
+echo &quot;=== Players ===&quot; &gt;&gt; report.txt
+hierarchy -n &quot;Player*&quot; &gt;&gt; report.txt
+echo &quot;=== Enemies ===&quot; &gt;&gt; report.txt
+hierarchy -n &quot;Enemy*&quot; &gt;&gt; report.txt
+</code></pre>
+<h3 id="入力リダイレクト">入力リダイレクト（<code>&lt;</code>）</h3>
+<p>ファイルの内容をコマンドの入力として読み取ります:</p>
+<pre><code class="lang-bash"># ファイル内を検索
+grep -p &quot;error&quot; &lt; log.txt
+
+# ファイル内容を処理
+count &lt; data.txt
+
+# ファイル内の単語数をカウント
+count -w &lt; document.txt
+</code></pre>
+<h2 id="組み合わせ使用">組み合わせ使用</h2>
+<h3 id="パイプライン--出力リダイレクト">パイプライン + 出力リダイレクト</h3>
+<pre><code class="lang-bash"># フィルタリングして保存
+hierarchy -r | grep -p &quot;UI&quot; &gt; ui_objects.txt
+
+# 処理して保存
+cat data.txt | grep -p &quot;important&quot; | count &gt; result.txt
+</code></pre>
+<h3 id="入力リダイレクト--パイプライン">入力リダイレクト + パイプライン</h3>
+<pre><code class="lang-bash"># ファイルを読み取ってフィルタリング
+grep -p &quot;error&quot; &lt; log.txt | count
+
+# パイプラインでファイルを処理
+count -w &lt; document.txt
+</code></pre>
+<h3 id="複雑なチェーン">複雑なチェーン</h3>
+<pre><code class="lang-bash"># 完全な分析パイプライン
+hierarchy -r -l | grep -p &quot;Enemy&quot; | grep -v &quot;Disabled&quot; &gt; active_enemies.txt
+
+# 多段階処理
+cat input.txt | grep -p &quot;data&quot; | count &gt; analysis.txt
+</code></pre>
+<h2 id="実用例">実用例</h2>
+<h3 id="シーン分析">シーン分析</h3>
+<pre><code class="lang-bash"># 完全なヒエラルキーをエクスポート
+hierarchy -r -l &gt; scene_dump.txt
+
+# タイプ別にオブジェクト数をカウント
+echo &quot;Rigidbody count:&quot; &gt; physics_report.txt
+hierarchy -c Rigidbody | count &gt;&gt; physics_report.txt
+echo &quot;Collider count:&quot; &gt;&gt; physics_report.txt
+hierarchy -c Collider | count &gt;&gt; physics_report.txt
+</code></pre>
+<h3 id="デバッグログ">デバッグログ</h3>
+<pre><code class="lang-bash"># デバッグスナップショットを作成
+echo &quot;=== Debug Snapshot ===&quot; &gt;&gt; debug.log
+hierarchy -r -l &gt;&gt; debug.log
+echo &quot;&quot; &gt;&gt; debug.log
+</code></pre>
+<h3 id="設定エクスポート">設定エクスポート</h3>
+<pre><code class="lang-bash"># すべての設定をエクスポート
+property list /GameManager Settings &gt; settings.txt
+property list /AudioManager AudioSettings &gt;&gt; settings.txt
+property list /GraphicsManager GraphicsSettings &gt;&gt; settings.txt
+</code></pre>
+<h3 id="バッチ処理">バッチ処理</h3>
+<pre><code class="lang-bash"># すべてのUI要素を検索してドキュメント化
+hierarchy -c &quot;UnityEngine.UI.Image&quot; &gt; ui_images.txt
+hierarchy -c &quot;UnityEngine.UI.Text&quot; &gt; ui_texts.txt
+hierarchy -c &quot;UnityEngine.UI.Button&quot; &gt; ui_buttons.txt
+</code></pre>
+<h2 id="エラー処理">エラー処理</h2>
+<h3 id="stderr-と-stdout">Stderr と Stdout</h3>
+<ul>
+<li><strong>Stdout</strong>: 通常の出力（パイプラインを通過）</li>
+<li><strong>Stderr</strong>: エラーメッセージ（直接表示）</li>
+</ul>
+<pre><code class="lang-bash"># エラーはパイプを通過しない
+nonexistent_command | grep -p &quot;test&quot;
+# Error: Command 'nonexistent_command' not found
+# （grepは何も受け取らない）
+</code></pre>
+<h3 id="パイプラインの終了コード">パイプラインの終了コード</h3>
+<p>パイプラインの終了コードは、最後のコマンドの終了コードです:</p>
+<pre><code class="lang-bash"># grepが何も見つからなくても、終了コードはSuccess
+# （grepは何も出力しないが、エラーではない）
+hierarchy | grep -p &quot;NonExistent&quot;
+</code></pre>
+<h2 id="ヒント">ヒント</h2>
+<ol>
+<li><strong>パイプラインはフィルタリングに使用</strong> - すべてをメモリにロードするのを避ける</li>
+<li><strong>大きな出力はリダイレクト</strong> - 表示の代わりにファイルに保存</li>
+<li><strong>段階的にチェーンを構築</strong> - 複雑なパイプラインは少しずつ構築</li>
+<li><strong>中間結果を確認</strong> - デバッグのために最後のリダイレクトを削除</li>
+</ol>
+<h3 id="パイプラインのデバッグ">パイプラインのデバッグ</h3>
+<pre><code class="lang-bash"># 完全なパイプライン
+hierarchy -r | grep -p &quot;Player&quot; | grep -p &quot;Active&quot; &gt; result.txt
+
+# ステップ1をデバッグ
+hierarchy -r
+
+# ステップ2をデバッグ
+hierarchy -r | grep -p &quot;Player&quot;
+
+# ステップ3をデバッグ
+hierarchy -r | grep -p &quot;Player&quot; | grep -p &quot;Active&quot;
+
+# リダイレクト付きの最終版
+hierarchy -r | grep -p &quot;Player&quot; | grep -p &quot;Active&quot; &gt; result.txt
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/ja/articles/pipeline-redirects.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

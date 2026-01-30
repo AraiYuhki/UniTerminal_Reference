@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>ファイル操作 | UniTerminal </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="ファイル操作 | UniTerminal ">
+      
+      
+      <link rel="icon" href="../../../images/favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/ja/articles/commands/file-operations.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../images/logo.svg" alt="UniTerminal">
+            UniTerminal
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="ファイル操作">ファイル操作</h1>
+
+<p>ファイルとディレクトリを操作するためのコマンドです。</p>
+<h2 id="pwd">pwd</h2>
+<p>現在の作業ディレクトリを表示します。</p>
+<h3 id="書式">書式</h3>
+<pre><code class="lang-bash">pwd [-L|-P]
+</code></pre>
+<h3 id="説明">説明</h3>
+<p>現在の作業ディレクトリの絶対パスを表示します。</p>
+<h3 id="オプション">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-L</code></td>
+<td><code>--logical</code></td>
+<td>論理パスを表示（デフォルト）。シンボリックリンク名を含むパスを使用。</td>
+</tr>
+<tr>
+<td><code>-P</code></td>
+<td><code>--physical</code></td>
+<td>シンボリックリンクを解決した物理パスを表示。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用例">使用例</h3>
+<pre><code class="lang-bash"># 現在のディレクトリを表示
+pwd
+# 出力: /Users/player/Projects/MyGame
+
+# 物理パスを表示（シンボリックリンク解決）
+pwd -P
+# 出力: /Users/player/Projects/MyGame
+</code></pre>
+<h3 id="終了コード">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>2</td>
+<td>現在のディレクトリが存在しないか、アクセス権限がない</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="cd">cd</h2>
+<p>作業ディレクトリを変更します。</p>
+<h3 id="書式-1">書式</h3>
+<pre><code class="lang-bash">cd [-L|-P] [directory]
+cd -
+</code></pre>
+<h3 id="説明-1">説明</h3>
+<p>現在の作業ディレクトリを指定されたパスに変更します。引数なしの場合、ホームディレクトリに移動します。</p>
+<h3 id="オプション-1">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-L</code></td>
+<td><code>--logical</code></td>
+<td>シンボリックリンクをたどる（デフォルト）</td>
+</tr>
+<tr>
+<td><code>-P</code></td>
+<td><code>--physical</code></td>
+<td>シンボリックリンクを解決して物理ディレクトリ構造を使用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="引数">引数</h3>
+<table>
+<thead>
+<tr>
+<th>引数</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>directory</code></td>
+<td>移動先のディレクトリパス。<code>~</code> でホームディレクトリを指定可能。</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>前のディレクトリに移動（<code>cd $OLDPWD</code> と同等）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用例-1">使用例</h3>
+<pre><code class="lang-bash"># ホームディレクトリに移動
+cd
+
+# 特定のディレクトリに移動
+cd /Users/player/Projects
+
+# 親ディレクトリに移動
+cd ..
+
+# ホームディレクトリ省略記法を使用
+cd ~/Documents
+
+# 前のディレクトリに移動
+cd -
+# 出力: /previous/path
+
+# 物理パスを使用
+cd -P /symlinked/path
+</code></pre>
+<h3 id="終了コード-1">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>1</td>
+<td>引数が多すぎる</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ディレクトリが見つからない、ディレクトリではない、またはアクセス権限がない</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="ls">ls</h2>
+<p>ディレクトリの内容を一覧表示します。</p>
+<h3 id="書式-2">書式</h3>
+<pre><code class="lang-bash">ls [-a] [-l] [-h] [-r] [-R] [-S &lt;sort&gt;] [path...]
+</code></pre>
+<h3 id="説明-2">説明</h3>
+<p>ファイルとディレクトリの情報を一覧表示します。デフォルトでは現在のディレクトリの内容を表示します。</p>
+<h3 id="オプション-2">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a</code></td>
+<td><code>--all</code></td>
+<td><code>.</code> で始まるエントリ（隠しファイル）も表示</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td><code>--long</code></td>
+<td>詳細情報付きの長形式で表示</td>
+</tr>
+<tr>
+<td><code>-h</code></td>
+<td><code>--human-readable</code></td>
+<td>サイズを人間が読みやすい形式で表示（例: 1K, 234M）</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td><code>--reverse</code></td>
+<td>ソート順を逆にする</td>
+</tr>
+<tr>
+<td><code>-R</code></td>
+<td><code>--recursive</code></td>
+<td>サブディレクトリを再帰的に表示</td>
+</tr>
+<tr>
+<td><code>-S</code></td>
+<td><code>--sort</code></td>
+<td>ソート基準: <code>name</code>（デフォルト）, <code>size</code>, <code>time</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="引数-1">引数</h3>
+<table>
+<thead>
+<tr>
+<th>引数</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td>表示するファイルまたはディレクトリ。複数指定可能。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="出力形式">出力形式</h3>
+<p><strong>通常形式:</strong></p>
+<pre><code>file1.txt  file2.txt  folder/
+</code></pre>
+<p><strong>長形式 (<code>-l</code>):</strong></p>
+<pre><code>-rw-rw-rw-  1      1234  2025-01-15 10:30  file.txt
+drwxrwxrwx  2         0  2025-01-15 09:00  folder/
+</code></pre>
+<p>フィールド: パーミッション、リンク数、サイズ、日時、名前</p>
+<h3 id="使用例-2">使用例</h3>
+<pre><code class="lang-bash"># 現在のディレクトリを表示
+ls
+
+# 詳細情報付きで表示
+ls -l
+
+# 隠しファイルを含めて表示
+ls -a
+
+# 人間が読みやすいサイズで表示
+ls -lh
+
+# サイズ順でソート（大きい順）
+ls -l -S size
+
+# 更新日時順でソート
+ls -l -S time
+
+# ソート順を逆にする
+ls -lr
+
+# 再帰的に表示
+ls -R
+
+# 特定のディレクトリを表示
+ls /path/to/directory
+
+# 複数パスを表示
+ls file1.txt folder/
+</code></pre>
+<h3 id="終了コード-2">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ファイルまたはディレクトリが見つからない、またはアクセス権限がない</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="cat">cat</h2>
+<p>ファイルの内容を連結して表示します。</p>
+<h3 id="書式-3">書式</h3>
+<pre><code class="lang-bash">cat [file...]
+</code></pre>
+<h3 id="説明-3">説明</h3>
+<p>ファイルを順番に読み取り、標準出力に書き出します。ファイルが指定されていない場合は、標準入力から読み取ります。</p>
+<h3 id="引数-2">引数</h3>
+<table>
+<thead>
+<tr>
+<th>引数</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file</code></td>
+<td>表示する1つ以上のファイル。省略時は標準入力から読み取り。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用例-3">使用例</h3>
+<pre><code class="lang-bash"># ファイル内容を表示
+cat file.txt
+
+# 複数ファイルを表示
+cat file1.txt file2.txt
+
+# パイプラインで使用（パススルー）
+echo &quot;Hello&quot; | cat
+
+# ファイルにリダイレクト
+cat source.txt &gt; destination.txt
+
+# ファイルを結合
+cat header.txt body.txt footer.txt &gt; complete.txt
+</code></pre>
+<h3 id="終了コード-3">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ファイルが見つからない、または読み取りエラー</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="find">find</h2>
+<p>ディレクトリ階層内でファイルを検索します。</p>
+<h3 id="書式-4">書式</h3>
+<pre><code class="lang-bash">find [path...] [-n pattern] [-i pattern] [-t type] [-d depth] [--mindepth N]
+</code></pre>
+<h3 id="説明-4">説明</h3>
+<p>ディレクトリツリー内で指定された条件に一致するファイルを検索します。</p>
+<h3 id="オプション-3">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code></td>
+<td><code>--name</code></td>
+<td>ファイル名パターン（<code>*</code> と <code>?</code> ワイルドカード対応）</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td><code>--iname</code></td>
+<td>大文字小文字を区別しないファイル名パターン</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td><code>--type</code></td>
+<td>ファイルタイプ: <code>f</code>（ファイル）, <code>d</code>（ディレクトリ）</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td><code>--maxdepth</code></td>
+<td>最大検索深度（-1 = 無制限、デフォルト）</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--mindepth</code></td>
+<td>最小検索深度（デフォルト: 0）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="引数-3">引数</h3>
+<table>
+<thead>
+<tr>
+<th>引数</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td>検索開始ディレクトリ。デフォルトは現在のディレクトリ。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ワイルドカード">ワイルドカード</h3>
+<table>
+<thead>
+<tr>
+<th>パターン</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td>任意の文字列にマッチ</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>任意の1文字にマッチ</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用例-4">使用例</h3>
+<pre><code class="lang-bash"># 現在のディレクトリツリー内のすべてのファイルを検索
+find
+
+# 名前パターンで検索
+find -n &quot;*.cs&quot;
+find -n &quot;Player*&quot;
+
+# 大文字小文字を区別しない検索
+find -i &quot;readme*&quot;
+
+# ファイルのみ検索
+find -t f
+
+# ディレクトリのみ検索
+find -t d
+
+# 検索深度を制限
+find -d 2
+
+# オプションを組み合わせ
+find /path/to/search -n &quot;*.txt&quot; -t f -d 3
+
+# 特定のディレクトリ内を検索
+find Assets/Scripts -n &quot;*.cs&quot;
+</code></pre>
+<h3 id="出力">出力</h3>
+<p>検索ディレクトリからの相対パスで一致するパスを出力します:</p>
+<pre><code>./file.txt
+./subfolder/another.txt
+./subfolder/deep/file.txt
+</code></pre>
+<h3 id="終了コード-4">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功（一致なしの場合も含む）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>開始パスが見つからない</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="less">less</h2>
+<p>ファイル内容をページ単位で表示します。</p>
+<h3 id="書式-5">書式</h3>
+<pre><code class="lang-bash">less [-n lines] [-f line] [-N] [-S] [file]
+</code></pre>
+<h3 id="説明-5">説明</h3>
+<p>ページネーションをサポートしてファイル内容を表示します。UniTerminalの非対話的環境では、指定された行数を出力します。</p>
+<h3 id="オプション-4">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code></td>
+<td><code>--lines</code></td>
+<td>表示する行数（0 = 全行、デフォルト）</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td><code>--from-line</code></td>
+<td>指定行から開始（1ベース、デフォルト: 1）</td>
+</tr>
+<tr>
+<td><code>-N</code></td>
+<td><code>--line-numbers</code></td>
+<td>行番号を表示</td>
+</tr>
+<tr>
+<td><code>-S</code></td>
+<td><code>--chop-long-lines</code></td>
+<td>長い行を80文字で切り詰め</td>
+</tr>
+</tbody>
+</table>
+<h3 id="引数-4">引数</h3>
+<table>
+<thead>
+<tr>
+<th>引数</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file</code></td>
+<td>表示するファイル。<code>-</code> で標準入力。省略時は標準入力から読み取り。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用例-5">使用例</h3>
+<pre><code class="lang-bash"># ファイル全体を表示
+less file.txt
+
+# 先頭20行を表示
+less -n 20 file.txt
+
+# 50〜70行を表示
+less -f 50 -n 20 file.txt
+
+# 行番号付きで表示
+less -N file.txt
+
+# 長い行を切り詰め
+less -S logfile.txt
+
+# 標準入力から表示
+cat file.txt | less -n 10
+
+# オプションを組み合わせ
+less -N -n 50 -f 100 largefile.txt
+</code></pre>
+<h3 id="-n-オプション使用時の出力"><code>-n</code> オプション使用時の出力</h3>
+<pre><code>File: example.txt (lines 1-20 of 150)
+----------------------------------------
+Line 1 content
+Line 2 content
+...
+----------------------------------------
+(130 more lines)
+</code></pre>
+<h3 id="終了コード-5">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ファイルが見つからない、ディレクトリである、またはアクセス権限がない</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="diff">diff</h2>
+<p>ファイルを行単位で比較します。</p>
+<h3 id="書式-6">書式</h3>
+<pre><code class="lang-bash">diff [-u N] [-i] [-b] [-w] [-q] &lt;file1&gt; &lt;file2&gt;
+</code></pre>
+<h3 id="説明-6">説明</h3>
+<p>2つのファイルを比較し、差分を表示します。LCS（最長共通部分列）アルゴリズムを使用。</p>
+<h3 id="オプション-5">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-u</code></td>
+<td><code>--unified</code></td>
+<td>N行のコンテキストを含むunified形式で出力</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td><code>--ignore-case</code></td>
+<td>ファイル内容の大文字小文字の違いを無視</td>
+</tr>
+<tr>
+<td><code>-b</code></td>
+<td><code>--ignore-space</code></td>
+<td>空白の量の変化を無視</td>
+</tr>
+<tr>
+<td><code>-w</code></td>
+<td><code>--ignore-all-space</code></td>
+<td>すべての空白を無視</td>
+</tr>
+<tr>
+<td><code>-q</code></td>
+<td><code>--brief</code></td>
+<td>ファイルが異なるかどうかのみを報告</td>
+</tr>
+</tbody>
+</table>
+<h3 id="引数-5">引数</h3>
+<table>
+<thead>
+<tr>
+<th>引数</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file1</code></td>
+<td>比較する最初のファイル。<code>-</code> で標準入力。</td>
+</tr>
+<tr>
+<td><code>file2</code></td>
+<td>比較する2番目のファイル。<code>-</code> で標準入力。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="出力形式-1">出力形式</h3>
+<p><strong>通常形式（デフォルト）:</strong></p>
+<pre><code>2c2
+&lt; old line
+---
+&gt; new line
+5a6
+&gt; added line
+8d7
+&lt; deleted line
+</code></pre>
+<p><strong>unified形式 (<code>-u</code>):</strong></p>
+<pre><code>--- file1.txt
++++ file2.txt
+@@ -1,5 +1,6 @@
+ context line
+-removed line
++added line
+ context line
+</code></pre>
+<h3 id="使用例-6">使用例</h3>
+<pre><code class="lang-bash"># 2つのファイルを比較
+diff file1.txt file2.txt
+
+# 3行のコンテキスト付きunified形式
+diff -u 3 file1.txt file2.txt
+
+# 大文字小文字を無視
+diff -i file1.txt file2.txt
+
+# 空白の変更を無視
+diff -w file1.txt file2.txt
+
+# 簡潔な出力
+diff -q file1.txt file2.txt
+# 出力: Files file1.txt and file2.txt differ
+
+# 標準入力と比較
+cat modified.txt | diff original.txt -
+</code></pre>
+<h3 id="終了コード-6">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>ファイルが同一</td>
+</tr>
+<tr>
+<td>1</td>
+<td>ファイルが異なる</td>
+</tr>
+<tr>
+<td>2</td>
+<td>エラー（ファイルが見つからないなど）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="head">head</h2>
+<p>ファイルの先頭部分を表示します。</p>
+<h3 id="書式-7">書式</h3>
+<pre><code class="lang-bash">head [-n lines] [-c bytes] [-q] [-v] [file...]
+</code></pre>
+<h3 id="説明-7">説明</h3>
+<p>各ファイルの先頭部分を標準出力に表示します。デフォルトでは先頭10行を表示します。</p>
+<h3 id="オプション-6">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code></td>
+<td><code>--lines</code></td>
+<td>先頭から表示する行数。負の値は末尾からN行を除いた全行を表示。</td>
+</tr>
+<tr>
+<td><code>-c</code></td>
+<td><code>--bytes</code></td>
+<td>先頭から表示するバイト数。</td>
+</tr>
+<tr>
+<td><code>-q</code></td>
+<td><code>--quiet</code></td>
+<td>ファイルヘッダーを表示しない</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td><code>--verbose</code></td>
+<td>ファイルヘッダーを常に表示</td>
+</tr>
+</tbody>
+</table>
+<h3 id="引数-6">引数</h3>
+<table>
+<thead>
+<tr>
+<th>引数</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file</code></td>
+<td>表示する1つ以上のファイル。省略時は標準入力から読み取り。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用例-7">使用例</h3>
+<pre><code class="lang-bash"># デフォルト（先頭10行）
+head myfile.txt
+
+# 行数を指定
+head -n 5 myfile.txt
+
+# 末尾を除く全行（末尾2行を除く）
+head -n -2 myfile.txt
+
+# バイト数を指定
+head -c 100 myfile.txt
+
+# 複数ファイル
+head file1.txt file2.txt
+
+# ヘッダーを常に表示
+head -v myfile.txt
+
+# ヘッダーを非表示
+head -q file1.txt file2.txt
+</code></pre>
+<h3 id="終了コード-7">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ファイルが見つからない、または読み取りエラー</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="tail">tail</h2>
+<p>ファイルの末尾部分を表示します。</p>
+<h3 id="書式-8">書式</h3>
+<pre><code class="lang-bash">tail [-n lines] [-c bytes] [-f] [-q] [-v] [file...]
+</code></pre>
+<h3 id="説明-8">説明</h3>
+<p>各ファイルの末尾部分を標準出力に表示します。デフォルトでは末尾10行を表示します。</p>
+<h3 id="オプション-7">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code></td>
+<td><code>--lines</code></td>
+<td>末尾から表示する行数。<code>+N</code> で先頭からN行目以降を表示。</td>
+</tr>
+<tr>
+<td><code>-c</code></td>
+<td><code>--bytes</code></td>
+<td>末尾から表示するバイト数。</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td><code>--follow</code></td>
+<td>ファイルの追加内容をリアルタイムで表示（Ctrl+Cで停止）</td>
+</tr>
+<tr>
+<td><code>-q</code></td>
+<td><code>--quiet</code></td>
+<td>ファイルヘッダーを表示しない</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td><code>--verbose</code></td>
+<td>ファイルヘッダーを常に表示</td>
+</tr>
+</tbody>
+</table>
+<h3 id="引数-7">引数</h3>
+<table>
+<thead>
+<tr>
+<th>引数</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file</code></td>
+<td>表示する1つ以上のファイル。省略時は標準入力から読み取り。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用例-8">使用例</h3>
+<pre><code class="lang-bash"># デフォルト（末尾10行）
+tail myfile.txt
+
+# 行数を指定
+tail -n 5 myfile.txt
+
+# 先頭から（3行目以降を表示）
+tail -n +3 myfile.txt
+
+# バイト数を指定
+tail -c 100 myfile.txt
+
+# リアルタイム監視（Ctrl+Cで停止）
+tail -f logfile.txt
+
+# 複数ファイル
+tail file1.txt file2.txt
+</code></pre>
+<h3 id="終了コード-8">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ファイルが見つからない、または読み取りエラー</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/ja/articles/commands/file-operations.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

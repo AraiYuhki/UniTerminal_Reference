@@ -1,0 +1,330 @@
+{
+  "sitemap": {
+    "baseUrl": "https://araiyuhki.github.io/UniTerminal_Reference/"
+  },
+  "source_base_path": "/home/runner/work/UniTerminal/UniTerminal/docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/commands/file-operations.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/commands/file-operations.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/commands/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/commands/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/commands/text-processing.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/commands/text-processing.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/commands/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/commands/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/commands/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/commands/unity-commands.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/commands/unity-commands.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/commands/utilities.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/commands/utilities.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/custom-commands.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/custom-commands.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/flyweight-scrollview.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/flyweight-scrollview.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/pipeline-redirects.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/pipeline-redirects.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/unitask-support.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/unitask-support.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/logo.svg",
+      "output": {
+        "resource": {
+          "relative_path": "images/logo.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "ja/articles/commands/file-operations.md",
+      "output": {
+        ".html": {
+          "relative_path": "ja/articles/commands/file-operations.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "ja/articles/commands/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "ja/articles/commands/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "ja/articles/commands/text-processing.md",
+      "output": {
+        ".html": {
+          "relative_path": "ja/articles/commands/text-processing.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "ja/articles/commands/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ja/articles/commands/toc.html"
+        },
+        ".json": {
+          "relative_path": "ja/articles/commands/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "ja/articles/commands/unity-commands.md",
+      "output": {
+        ".html": {
+          "relative_path": "ja/articles/commands/unity-commands.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "ja/articles/commands/utilities.md",
+      "output": {
+        ".html": {
+          "relative_path": "ja/articles/commands/utilities.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "ja/articles/custom-commands.md",
+      "output": {
+        ".html": {
+          "relative_path": "ja/articles/custom-commands.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "ja/articles/flyweight-scrollview.md",
+      "output": {
+        ".html": {
+          "relative_path": "ja/articles/flyweight-scrollview.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "ja/articles/getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "ja/articles/getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "ja/articles/pipeline-redirects.md",
+      "output": {
+        ".html": {
+          "relative_path": "ja/articles/pipeline-redirects.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "ja/articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ja/articles/toc.html"
+        },
+        ".json": {
+          "relative_path": "ja/articles/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "ja/articles/unitask-support.md",
+      "output": {
+        ".html": {
+          "relative_path": "ja/articles/unitask-support.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "ja/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "ja/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "ja/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "ja/toc.html"
+        },
+        ".json": {
+          "relative_path": "ja/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Unityコマンド | UniTerminal </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Unityコマンド | UniTerminal ">
+      
+      
+      <link rel="icon" href="../../../images/favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/ja/articles/commands/unity-commands.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../images/logo.svg" alt="UniTerminal">
+            UniTerminal
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="unityコマンド">Unityコマンド</h1>
+
+<p>Unity GameObjects、Transform、Componentsを操作するためのコマンドです。</p>
+<h2 id="hierarchy">hierarchy</h2>
+<p>シーンヒエラルキーをツリー構造で表示します。</p>
+<h3 id="書式">書式</h3>
+<pre><code class="lang-bash">hierarchy [-r] [-d depth] [-a] [-l] [-i] [-s scene] [-n pattern] [-c component] [-t tag] [-y layer] [path]
+</code></pre>
+<h3 id="説明">説明</h3>
+<p>現在のシーンのGameObjectsをツリー構造で表示します。名前、コンポーネント、タグ、レイヤーでフィルタリングできます。パスを指定すると、そのオブジェクトの子を表示します。</p>
+<h3 id="オプション">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-r</code></td>
+<td><code>--recursive</code></td>
+<td>子を再帰的に表示</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td><code>--depth</code></td>
+<td>表示する最大深度（-1 = 無制限、デフォルト）</td>
+</tr>
+<tr>
+<td><code>-a</code></td>
+<td><code>--all</code></td>
+<td>非アクティブなオブジェクトも含める</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td><code>--long</code></td>
+<td>詳細情報を表示（アクティブ状態、コンポーネント数、タグ）</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td><code>--id</code></td>
+<td>インスタンスIDを表示（参照設定に使用）</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td><code>--scene</code></td>
+<td>対象シーン名。<code>list</code> でロード済みシーンを表示</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td><code>--name</code></td>
+<td>名前でフィルタ（<code>*</code> と <code>?</code> ワイルドカード対応）</td>
+</tr>
+<tr>
+<td><code>-c</code></td>
+<td><code>--component</code></td>
+<td>コンポーネントタイプでフィルタ</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td><code>--tag</code></td>
+<td>タグでフィルタ</td>
+</tr>
+<tr>
+<td><code>-y</code></td>
+<td><code>--layer</code></td>
+<td>レイヤー名または番号（0-31）でフィルタ</td>
+</tr>
+</tbody>
+</table>
+<h3 id="引数">引数</h3>
+<table>
+<thead>
+<tr>
+<th>引数</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td>オプション。シーンルートの代わりにこのオブジェクトの子を表示。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="出力形式">出力形式</h3>
+<p><strong>通常形式:</strong></p>
+<pre><code>Scene: SampleScene (3 root objects)
+├── Main Camera
+├── Directional Light
+└── Player
+    ├── Model
+    └── Weapon
+</code></pre>
+<p><strong>長形式 (<code>-l</code>):</strong></p>
+<pre><code>Scene: SampleScene (3 root objects)
+├── [A] Main Camera              (4 components) [MainCamera]
+├── [A] Directional Light        (2 components) [Untagged]
+└── [A] Player                   (5 components) [Player]
+</code></pre>
+<p><code>[A]</code> = アクティブ、<code>[-]</code> = 非アクティブ</p>
+<p><strong>インスタンスID付き (<code>-i</code>):</strong></p>
+<pre><code>├── Player #12345
+├── Enemy #12346
+└── Camera #12347
+</code></pre>
+<h3 id="使用例">使用例</h3>
+<pre><code class="lang-bash"># アクティブシーンのルートオブジェクトを表示
+hierarchy
+
+# 再帰的に表示
+hierarchy -r
+
+# 詳細情報付きで表示
+hierarchy -l
+
+# インスタンスIDを表示（参照設定に使用）
+hierarchy -i
+
+# 深度を3レベルに制限
+hierarchy -r -d 3
+
+# 非アクティブなオブジェクトも含める
+hierarchy -r -a
+
+# 名前でフィルタ（ワイルドカード）
+hierarchy -n &quot;Player*&quot;
+hierarchy -n &quot;*Enemy*&quot;
+
+# コンポーネントでフィルタ
+hierarchy -c Rigidbody
+hierarchy -r -c &quot;UnityEngine.UI.Image&quot;
+
+# タグでフィルタ
+hierarchy -t Player
+
+# レイヤーでフィルタ
+hierarchy -y 5
+hierarchy -y &quot;UI&quot;
+
+# 特定のオブジェクトの子を表示
+hierarchy /Canvas
+
+# ロード済みシーンを一覧表示
+hierarchy -s list
+
+# 特定のシーンを対象
+hierarchy -s &quot;Level1&quot;
+
+# フィルタを組み合わせ
+hierarchy -r -a -n &quot;*Manager*&quot; -c MonoBehaviour
+</code></pre>
+<h3 id="終了コード">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>1</td>
+<td>無効なフィルタパターンまたは不明なレイヤー/コンポーネント</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GameObjectまたはシーンが見つからない</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="go">go</h2>
+<p>GameObjectを管理します（create、delete、find、rename、active、clone、info）。</p>
+<h3 id="書式-1">書式</h3>
+<pre><code class="lang-bash">go &lt;subcommand&gt; [options] [arguments]
+</code></pre>
+<h3 id="サブコマンド">サブコマンド</h3>
+<h4 id="create">create</h4>
+<p>新しいGameObjectを作成します。</p>
+<pre><code class="lang-bash">go create [name] [--primitive type] [--parent path] [--position x,y,z] [--rotation x,y,z] [--tag tag]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--primitive</code>, <code>-p</code></td>
+<td>プリミティブタイプ: Cube, Sphere, Capsule, Cylinder, Plane, Quad</td>
+</tr>
+<tr>
+<td><code>--parent</code></td>
+<td>親オブジェクトのパス</td>
+</tr>
+<tr>
+<td><code>--position</code></td>
+<td>初期ワールド位置 (x,y,z)</td>
+</tr>
+<tr>
+<td><code>--rotation</code></td>
+<td>初期回転（オイラー角） (x,y,z)</td>
+</tr>
+<tr>
+<td><code>--tag</code>, <code>-t</code></td>
+<td>割り当てるタグ</td>
+</tr>
+</tbody>
+</table>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash"># 空のGameObjectを作成
+go create MyObject
+
+# 名前と位置を指定して作成
+go create Player --position 0,1,0
+
+# プリミティブを作成
+go create MyCube --primitive Cube
+
+# 別のオブジェクトの子として作成
+go create Child --parent /Parent
+
+# タグ付きで作成
+go create Enemy --tag Enemy
+</code></pre>
+<h4 id="delete">delete</h4>
+<p>GameObjectを削除します。</p>
+<pre><code class="lang-bash">go delete &lt;path&gt; [--immediate] [--children]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--immediate</code></td>
+<td>Destroyの代わりにDestroyImmediateを使用</td>
+</tr>
+<tr>
+<td><code>--children</code></td>
+<td>子のみを削除し、オブジェクト自体は保持</td>
+</tr>
+</tbody>
+</table>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash"># オブジェクトを削除
+go delete /MyObject
+
+# 即座に削除（エディタスクリプト用）
+go delete /Temp --immediate
+
+# 子のみを削除
+go delete /Parent --children
+</code></pre>
+<h4 id="find">find</h4>
+<p>GameObjectを検索します。</p>
+<pre><code class="lang-bash">go find [-n name] [-t tag] [-c component] [-i]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code>, <code>--name</code></td>
+<td>名前パターン（部分一致、大文字小文字区別なし）</td>
+</tr>
+<tr>
+<td><code>-t</code>, <code>--tag</code></td>
+<td>タグ名</td>
+</tr>
+<tr>
+<td><code>-c</code>, <code>--component</code></td>
+<td>コンポーネントタイプ</td>
+</tr>
+<tr>
+<td><code>-i</code>, <code>--inactive</code></td>
+<td>非アクティブなオブジェクトも含める</td>
+</tr>
+</tbody>
+</table>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash"># 名前で検索
+go find -n Player
+go find -n &quot;Enemy&quot;
+
+# タグで検索
+go find -t Player
+
+# コンポーネントで検索
+go find -c Rigidbody
+
+# 非アクティブなオブジェクトも含める
+go find -n Manager -i
+
+# フィルタを組み合わせ
+go find -t Enemy -c EnemyAI
+</code></pre>
+<h4 id="rename">rename</h4>
+<p>GameObjectの名前を変更します。</p>
+<pre><code class="lang-bash">go rename &lt;path&gt; &lt;new-name&gt;
+</code></pre>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash">go rename /OldName NewName
+go rename /Player/Weapon Sword
+</code></pre>
+<h4 id="active">active</h4>
+<p>アクティブ状態を取得または設定します。</p>
+<pre><code class="lang-bash">go active &lt;path&gt; [--set true|false] [--toggle]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-s</code>, <code>--set</code></td>
+<td>アクティブ状態を設定 (true/false)</td>
+</tr>
+<tr>
+<td><code>--toggle</code></td>
+<td>現在の状態を切り替え</td>
+</tr>
+</tbody>
+</table>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash"># アクティブ状態を表示
+go active /MyObject
+
+# アクティブにする
+go active /MyObject --set true
+
+# 非アクティブにする
+go active /MyObject --set false
+
+# トグル
+go active /MyObject --toggle
+</code></pre>
+<h4 id="clone">clone</h4>
+<p>GameObjectを複製します。</p>
+<pre><code class="lang-bash">go clone &lt;path&gt; [-n name] [--parent path] [--count N]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code>, <code>--name</code></td>
+<td>クローンの新しい名前</td>
+</tr>
+<tr>
+<td><code>--parent</code></td>
+<td>クローンの親（デフォルト: 元と同じ）</td>
+</tr>
+<tr>
+<td><code>--count</code></td>
+<td>作成するクローンの数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash"># オブジェクトを複製
+go clone /Template
+
+# 新しい名前で複製
+go clone /Enemy -n EnemyClone
+
+# 複数複製
+go clone /Bullet --count 10
+
+# 別の親に複製
+go clone /Prefab --parent /Container
+</code></pre>
+<h4 id="info">info</h4>
+<p>GameObjectの詳細情報を表示します。</p>
+<pre><code class="lang-bash">go info &lt;path&gt;
+</code></pre>
+<p><strong>出力内容:</strong></p>
+<ul>
+<li>名前、パス、アクティブ状態</li>
+<li>タグ、レイヤー、静的フラグ</li>
+<li>Transform（位置、回転、スケール）</li>
+<li>コンポーネント一覧</li>
+<li>子オブジェクト一覧</li>
+</ul>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash">go info /Player
+</code></pre>
+<h3 id="終了コード-1">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>1</td>
+<td>サブコマンドがない、または引数が無効</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GameObjectが見つからない、無効なプリミティブタイプ、または操作失敗</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="transform">transform</h2>
+<p>GameObjectのTransformを操作します。</p>
+<h3 id="書式-2">書式</h3>
+<pre><code class="lang-bash">transform &lt;path&gt; [-p pos] [-P pos] [-r rot] [-R rot] [-s scale] [--parent path] [-w]
+</code></pre>
+<h3 id="説明-1">説明</h3>
+<p>Transformプロパティを取得または設定します。オプションなしの場合、現在のTransform情報を表示します。</p>
+<h3 id="オプション-1">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-p</code></td>
+<td><code>--position</code></td>
+<td>ワールド位置を設定 (x,y,z)</td>
+</tr>
+<tr>
+<td><code>-P</code></td>
+<td><code>--local-position</code></td>
+<td>ローカル位置を設定 (x,y,z)</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td><code>--rotation</code></td>
+<td>ワールド回転をオイラー角で設定 (x,y,z)</td>
+</tr>
+<tr>
+<td><code>-R</code></td>
+<td><code>--local-rotation</code></td>
+<td>ローカル回転をオイラー角で設定 (x,y,z)</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td><code>--scale</code></td>
+<td>ローカルスケールを設定（x,y,z または均一値）</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--parent</code></td>
+<td>親を設定（<code>/</code>、<code>null</code>、<code>none</code> で親を解除）</td>
+</tr>
+<tr>
+<td><code>-w</code></td>
+<td><code>--world</code></td>
+<td>親変更時にワールド位置を維持（デフォルト: true）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ベクトル形式">ベクトル形式</h3>
+<p>ベクトルは以下の形式で指定できます:</p>
+<ul>
+<li><code>x,y,z</code> - 3つのコンポーネント</li>
+<li><code>x,y</code> - 2つのコンポーネント（z = 0）</li>
+<li><code>n</code> - 単一値（すべてのコンポーネントに適用）</li>
+</ul>
+<h3 id="使用例-1">使用例</h3>
+<pre><code class="lang-bash"># Transform情報を表示
+transform /Player
+
+# ワールド位置を設定
+transform /Player -p 10,0,5
+
+# ローカル位置を設定
+transform /Player -P 0,1,0
+
+# ワールド回転を設定
+transform /Player -r 0,90,0
+
+# ローカル回転を設定
+transform /Player -R 45,0,0
+
+# 均一スケールを設定
+transform /Player -s 2
+
+# 非均一スケールを設定
+transform /Player -s 1,2,1
+
+# 親を設定
+transform /Child --parent /NewParent
+
+# 親を解除（ルートに移動）
+transform /Child --parent /
+transform /Child --parent null
+
+# 複数のプロパティを設定
+transform /Player -p 0,1,0 -r 0,180,0 -s 1.5,1.5,1.5
+</code></pre>
+<h3 id="出力">出力</h3>
+<p><strong>情報表示:</strong></p>
+<pre><code>Transform: Player
+  World Position:  (10.00, 0.00, 5.00)
+  Local Position:  (10.00, 0.00, 5.00)
+  World Rotation:  (0.00, 90.00, 0.00)
+  Local Rotation:  (0.00, 90.00, 0.00)
+  Local Scale:     (1.00, 1.00, 1.00)
+  Parent:          (none)
+  Children:        3
+  Sibling Index:   0
+</code></pre>
+<p><strong>変更表示:</strong></p>
+<pre><code>Transform: Player
+  Position: (0.00, 0.00, 0.00) -&gt; (10.00, 0.00, 5.00)
+</code></pre>
+<h3 id="終了コード-2">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>1</td>
+<td>無効なベクトル形式</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GameObjectまたは親が見つからない、循環参照</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="component">component</h2>
+<p>GameObjectのコンポーネントを管理します。</p>
+<h3 id="書式-3">書式</h3>
+<pre><code class="lang-bash">component &lt;subcommand&gt; &lt;path&gt; [arguments] [-a] [-v] [-i] [-n namespace]
+</code></pre>
+<h3 id="オプショングローバル">オプション（グローバル）</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a</code></td>
+<td><code>--all</code></td>
+<td>すべての一致するコンポーネントを削除 / すべてのメンバーを含める</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td><code>--verbose</code></td>
+<td>完全な型名を表示</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td><code>--immediate</code></td>
+<td>削除にDestroyImmediateを使用</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td><code>--namespace</code></td>
+<td>型解決のための名前空間</td>
+</tr>
+</tbody>
+</table>
+<h3 id="サブコマンド-1">サブコマンド</h3>
+<h4 id="list">list</h4>
+<p>GameObjectのコンポーネントを一覧表示します。</p>
+<pre><code class="lang-bash">component list &lt;path&gt; [-v]
+</code></pre>
+<p><strong>出力:</strong></p>
+<pre><code>Components on Player (5):
+  [0] Transform
+  [1] Rigidbody (enabled)
+  [2] CapsuleCollider (enabled)
+  [3] PlayerController (enabled)
+  [4] Animator (disabled)
+</code></pre>
+<p><strong>詳細出力 (<code>-v</code>):</strong></p>
+<pre><code>Components on Player (5):
+  [0] Transform                    UnityEngine.Transform
+  [1] Rigidbody                    UnityEngine.Rigidbody
+  ...
+</code></pre>
+<h4 id="add">add</h4>
+<p>GameObjectにコンポーネントを追加します。</p>
+<pre><code class="lang-bash">component add &lt;path&gt; &lt;type&gt;
+</code></pre>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash">component add /Player Rigidbody
+component add /Player BoxCollider
+component add /Canvas &quot;UnityEngine.UI.Image&quot;
+</code></pre>
+<h4 id="remove">remove</h4>
+<p>GameObjectからコンポーネントを削除します。</p>
+<pre><code class="lang-bash">component remove &lt;path&gt; &lt;type|index&gt; [-a] [-i]
+</code></pre>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash"># 型名で削除
+component remove /Player Rigidbody
+
+# インデックスで削除
+component remove /Player 2
+
+# 指定型のすべてを削除
+component remove /Player BoxCollider -a
+
+# 即座に削除
+component remove /Player Rigidbody --immediate
+</code></pre>
+<p><strong>注:</strong> Transformは削除できません。</p>
+<h4 id="info-1">info</h4>
+<p>コンポーネントの詳細情報を表示します。</p>
+<pre><code class="lang-bash">component info &lt;path&gt; &lt;type|index&gt;
+</code></pre>
+<p><strong>出力:</strong></p>
+<pre><code>Component: Rigidbody
+  Type: UnityEngine.Rigidbody
+  GameObject: /Player
+  Enabled: true
+  Properties:
+    mass: 1 (Single)
+    drag: 0 (Single)
+    angularDrag: 0.05 (Single)
+    useGravity: true (Boolean)
+    ...
+</code></pre>
+<h4 id="enable--disable">enable / disable</h4>
+<p>コンポーネントを有効または無効にします。</p>
+<pre><code class="lang-bash">component enable &lt;path&gt; &lt;type|index&gt;
+component disable &lt;path&gt; &lt;type|index&gt;
+</code></pre>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash">component enable /Player Rigidbody
+component disable /Player 3
+</code></pre>
+<p><strong>注:</strong> Behaviour、Collider、Rendererコンポーネントのみが有効/無効をサポートします。</p>
+<h3 id="終了コード-3">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>1</td>
+<td>引数が不足、またはインデックスが範囲外</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GameObjectが見つからない、コンポーネントタイプが見つからない、追加/削除不可</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="property">property</h2>
+<p>リフレクションを使用してコンポーネントのプロパティ値を取得または設定します。</p>
+<h3 id="書式-4">書式</h3>
+<pre><code class="lang-bash">property &lt;subcommand&gt; &lt;path&gt; &lt;component&gt; [property] [value] [-a] [-s] [-n namespace]
+</code></pre>
+<h3 id="オプション-2">オプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>ロング形式</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a</code></td>
+<td><code>--all</code></td>
+<td>プライベートフィールドを含める</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td><code>--serialized</code></td>
+<td>SerializeFieldメンバーのみを表示</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td><code>--namespace</code></td>
+<td>コンポーネント解決のための名前空間</td>
+</tr>
+</tbody>
+</table>
+<h3 id="サブコマンド-2">サブコマンド</h3>
+<h4 id="list-1">list</h4>
+<p>コンポーネントのすべてのプロパティを一覧表示します。</p>
+<pre><code class="lang-bash">property list &lt;path&gt; &lt;component&gt; [-a] [-s]
+</code></pre>
+<p><strong>出力:</strong></p>
+<pre><code>Properties of Rigidbody on /Player:
+  mass                     float          1
+  drag                     float          0
+  angularDrag              float          0.05
+  useGravity               bool           true
+  isKinematic              bool           false
+  velocity                 Vector3        (0.00, 0.00, 0.00) [readonly]
+  ...
+</code></pre>
+<h4 id="get">get</h4>
+<p>1つ以上のプロパティ値を取得します。</p>
+<pre><code class="lang-bash">property get &lt;path&gt; &lt;component&gt; &lt;property[,property2,...]&gt;
+</code></pre>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash"># 単一プロパティ
+property get /Player Rigidbody mass
+
+# 複数プロパティ
+property get /Player Transform position,rotation,localScale
+
+# 配列要素
+property get /Renderer MeshRenderer materials[0]
+</code></pre>
+<p><strong>出力:</strong></p>
+<pre><code>Rigidbody.mass = 1 (float)
+</code></pre>
+<h4 id="set">set</h4>
+<p>プロパティ値を設定します。</p>
+<pre><code class="lang-bash">property set &lt;path&gt; &lt;component&gt; &lt;property&gt; &lt;value&gt;
+</code></pre>
+<h3 id="サポートされる値の型">サポートされる値の型</h3>
+<table>
+<thead>
+<tr>
+<th>型</th>
+<th>形式</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int, float, double</td>
+<td>数値</td>
+<td><code>10</code>, <code>3.14</code></td>
+</tr>
+<tr>
+<td>bool</td>
+<td>true/false</td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+<tr>
+<td>string</td>
+<td>テキスト</td>
+<td><code>&quot;Hello World&quot;</code></td>
+</tr>
+<tr>
+<td>Vector2</td>
+<td>x,y</td>
+<td><code>1.5,2.0</code></td>
+</tr>
+<tr>
+<td>Vector3</td>
+<td>x,y,z</td>
+<td><code>1,2,3</code></td>
+</tr>
+<tr>
+<td>Vector4</td>
+<td>x,y,z,w</td>
+<td><code>1,2,3,4</code></td>
+</tr>
+<tr>
+<td>Color</td>
+<td>r,g,b,a (0-1)</td>
+<td><code>1,0,0,1</code>（赤）</td>
+</tr>
+<tr>
+<td>Quaternion</td>
+<td>x,y,z,w</td>
+<td><code>0,0,0,1</code></td>
+</tr>
+<tr>
+<td>Enum</td>
+<td>名前または値</td>
+<td><code>ForceMode.Impulse</code>, <code>1</code></td>
+</tr>
+<tr>
+<td>配列要素</td>
+<td>name[index]</td>
+<td><code>materials[0]</code></td>
+</tr>
+<tr>
+<td>参照型</td>
+<td>パスまたはインスタンスID</td>
+<td><code>/Parent</code>, <code>#12345</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用例-2">使用例</h3>
+<pre><code class="lang-bash"># 数値
+property set /Player Rigidbody mass 10
+property set /Player Rigidbody drag 0.5
+
+# ブール値
+property set /Player Rigidbody useGravity false
+property set /Player Rigidbody isKinematic true
+
+# Vector3
+property set /Player Transform position 0,1,0
+property set /Player Transform localScale 2,2,2
+
+# Color（RGBA、0-1範囲）
+property set /Sprite SpriteRenderer color 1,0,0,1
+
+# 文字列
+property set /Text TextMesh text &quot;Hello World&quot;
+
+# Enum
+property set /Player Rigidbody interpolation Interpolate
+
+# 配列要素
+property set /Renderer MeshRenderer materials[0] MyMaterial
+
+# 参照型（パス指定）
+property set /Child Transform parent /Parent
+property set /MyObject Transform parent null
+
+# 参照型（インスタンスID指定）
+# まずhierarchy -iでインスタンスIDを確認
+hierarchy -i
+# ├── Player #12345
+# ├── Enemy #12346
+# └── Target #12347
+
+# インスタンスIDで参照を設定
+property set /Enemy FollowTarget target #12345
+</code></pre>
+<h3 id="終了コード-4">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>1</td>
+<td>無効な値形式または型変換失敗</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GameObject、コンポーネント、またはプロパティが見つからない；プロパティが読み取り専用</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="scene">scene</h2>
+<p>シーンを管理します。</p>
+<h3 id="書式-5">書式</h3>
+<pre><code class="lang-bash">scene &lt;subcommand&gt; [options] [arguments]
+</code></pre>
+<h3 id="サブコマンド-3">サブコマンド</h3>
+<h4 id="list-2">list</h4>
+<p>シーン一覧を表示します。</p>
+<pre><code class="lang-bash">scene list [-a] [-l]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a</code></td>
+<td>Build Settings内のすべてのシーンを表示</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>詳細情報を表示</td>
+</tr>
+</tbody>
+</table>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash"># ロード済みシーン一覧
+scene list
+
+# Build Settingsの全シーン一覧（ロード状態も表示）
+scene list -a
+</code></pre>
+<h4 id="load">load</h4>
+<p>シーンをロードします。</p>
+<pre><code class="lang-bash">scene load &lt;scene-name&gt; [--additive] [--async]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--additive</code></td>
+<td>追加ロード（既存シーンを維持）</td>
+</tr>
+<tr>
+<td><code>--async</code></td>
+<td>非同期ロード</td>
+</tr>
+</tbody>
+</table>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash"># シーンをロード
+scene load GameScene
+
+# 追加ロード + 非同期
+scene load GameScene --additive --async
+</code></pre>
+<h4 id="unload">unload</h4>
+<p>シーンをアンロードします。</p>
+<pre><code class="lang-bash">scene unload &lt;scene-name&gt;
+</code></pre>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash">scene unload GameScene
+</code></pre>
+<h4 id="active-1">active</h4>
+<p>アクティブシーンを取得または設定します。</p>
+<pre><code class="lang-bash">scene active [scene-name]
+</code></pre>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash"># 現在のアクティブシーンを取得
+scene active
+
+# アクティブシーンを変更
+scene active GameScene
+</code></pre>
+<h4 id="info-2">info</h4>
+<p>シーン情報を表示します。</p>
+<pre><code class="lang-bash">scene info [scene-name]
+</code></pre>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash"># 現在のシーン情報
+scene info
+
+# 特定シーンの情報
+scene info GameScene
+</code></pre>
+<h4 id="createエディタのみ">create（エディタのみ）</h4>
+<p>新しいシーンを作成します。</p>
+<pre><code class="lang-bash">scene create &lt;scene-name&gt; [--setup]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--setup</code></td>
+<td>デフォルトオブジェクト（カメラ、ライト）を含める</td>
+</tr>
+</tbody>
+</table>
+<p><strong>使用例:</strong></p>
+<pre><code class="lang-bash">scene create NewScene --setup
+</code></pre>
+<h3 id="終了コード-5">終了コード</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>1</td>
+<td>サブコマンドがない、または引数が無効</td>
+</tr>
+<tr>
+<td>2</td>
+<td>シーンが見つからない、またはロード/アンロード失敗</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="実用例">実用例</h2>
+<h3 id="シーンセットアップスクリプト">シーンセットアップスクリプト</h3>
+<pre><code class="lang-bash"># ゲーム構造を作成
+go create GameManager
+go create Player --primitive Capsule --position 0,1,0
+go create Ground --primitive Plane
+transform /Ground -s 10,1,10
+
+# 物理を追加
+component add /Player Rigidbody
+component add /Player CapsuleCollider
+component add /Ground MeshCollider
+
+# プレイヤーの物理を設定
+property set /Player Rigidbody mass 1
+property set /Player Rigidbody drag 0.5
+property set /Player Rigidbody angularDrag 0.5
+
+# 敵を作成
+go create EnemySpawner
+go create Enemy --primitive Cube --position 5,1,0 --tag Enemy
+go clone /Enemy --count 4
+</code></pre>
+<h3 id="デバッグと検査">デバッグと検査</h3>
+<pre><code class="lang-bash"># すべてのRigidbodyを検索
+hierarchy -r -c Rigidbody
+
+# プレイヤーの状態を検査
+go info /Player
+component list /Player -v
+property list /Player Rigidbody
+
+# Transformヒエラルキーを確認
+hierarchy /Player -r -l
+
+# 非アクティブなオブジェクトを検索
+hierarchy -r -a | grep &quot;\[-\]&quot;
+
+# シーン構造をエクスポート
+hierarchy -r -l &gt; scene_structure.txt
+</code></pre>
+<h3 id="ランタイム変更">ランタイム変更</h3>
+<pre><code class="lang-bash"># オブジェクトの表示を切り替え
+go active /UI/PauseMenu --toggle
+
+# プレイヤー位置をリセット
+transform /Player -p 0,1,0 -r 0,0,0
+
+# すべての敵AIを無効化
+go find -t Enemy -c EnemyAI | component disable EnemyAI
+
+# マテリアルの色を変更
+property set /Player MeshRenderer materials[0].color 0,1,0,1
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AraiYuhki/UniTerminal/blob/main/docs/ja/articles/commands/unity-commands.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
