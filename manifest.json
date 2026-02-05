@@ -2,7 +2,7 @@
   "sitemap": {
     "baseUrl": "https://araiyuhki.github.io/UniTerminal_Reference/"
   },
-  "source_base_path": "/home/runner/work/UniTerminal/UniTerminal/docs",
+  "source_base_path": "D:/Projects/UniTerminal/docs",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
